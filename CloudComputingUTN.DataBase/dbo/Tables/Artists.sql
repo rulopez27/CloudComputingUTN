@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Artists]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	ArtistName VARCHAR(100) NOT NULL,
+	ArtistWikiPage VARCHAR(300) NULL
+)
