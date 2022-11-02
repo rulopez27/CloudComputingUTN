@@ -62,9 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Artists.sql" />
-    <Build Include="dbo\Tables\Artwork.sql" />
+    <Build Include="dbo\Tables\Artworks.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployScripts\DatabaseSetup.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CloudComputingUTN.DataBase.publish.xml" />
   </ItemGroup>
 </Project>
