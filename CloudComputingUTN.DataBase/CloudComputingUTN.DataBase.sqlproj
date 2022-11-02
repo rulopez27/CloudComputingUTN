@@ -61,5 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Artists.sql" />
+    <Build Include="dbo\Tables\Artwork.sql" />
   </ItemGroup>
 </Project>
