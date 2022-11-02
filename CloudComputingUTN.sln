@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Web", "Cl
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CloudComputingUTN.DataBase", "CloudComputingUTN.DataBase\CloudComputingUTN.DataBase.sqlproj", "{352D164F-B462-4C45-AF6C-13F526324A9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.Entities", "CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj", "{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
