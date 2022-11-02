@@ -45,8 +45,8 @@ namespace CloudComputingUTN.Entities
         /// <summary>
         /// Initializes an Artist with defined properties
         /// </summary>
-        /// <param name="artistName"></param>
-        /// <param name="artistWikiPage"></param>
+        /// <param name="artistName">Artist name</param>
+        /// <param name="artistWikiPage">Artist Wiki URL</param>
         public Artist(string artistName, string artistWikiPage)
         {
             ArtistName = artistName;
