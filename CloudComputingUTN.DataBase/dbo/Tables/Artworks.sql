@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Artwork]
+﻿CREATE TABLE [dbo].[Artworks]
 (
 	[ArtworkId] INT NOT NULL PRIMARY KEY IDENTITY,
 	ArtistId INT NOT NULL REFERENCES Artists(ArtistId),
