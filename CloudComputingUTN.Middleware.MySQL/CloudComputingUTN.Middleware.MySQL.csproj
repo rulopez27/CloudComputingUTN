@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj" />
+    <ProjectReference Include="..\CloudComutingUTN.Middleware\CloudComputingUTN.Middleware.csproj" />
+  </ItemGroup>
+
 </Project>
