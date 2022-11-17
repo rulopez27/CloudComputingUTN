@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CloudComputingUTN.Middleware.MySQL
 {
-    public class MuseumDbMySQLRepository : IMuseumDbRepository
+    public class MuseumDbRepository : IMuseumDbRepository
     {
         private MuseumDbContext _museumDbContext;
-        public MuseumDbMySQLRepository(MuseumDbContext? museumDbContext)
+        public MuseumDbRepository(MuseumDbContext? museumDbContext = null)
         {
             _museumDbContext = museumDbContext ?? new MuseumDbContext();
         }
@@ -66,8 +66,8 @@ namespace CloudComputingUTN.Middleware.MySQL
             {
                 using (_museumDbContext)
                 {
-                    return (ICollection<Artist>)_museumDbContext.Artists
-                        .Include(a => a.ArtworkGallery);
+                    return _museumDbContext.Artists
+                        .Include(a => a.ArtworkGallery).ToList();
                 }
             }
             catch (Exception)
