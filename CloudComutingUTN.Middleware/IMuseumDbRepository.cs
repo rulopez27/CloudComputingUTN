@@ -1,4 +1,5 @@
 ﻿using CloudComputingUTN.Entities;
+using System.Collections;
 
 namespace CloudComputingUTN.Middleware
 {
@@ -8,7 +9,7 @@ namespace CloudComputingUTN.Middleware
         void CreateArtwork(Artwork artwork);
         Artist GetArtistById(int artistId);
         ICollection<Artist> GetArtists();
-        Artwork GetArtworkById();
+        Artwork GetArtworkById(int artworkId);
         ICollection<Artwork> GetArtworks();
     }
 }
