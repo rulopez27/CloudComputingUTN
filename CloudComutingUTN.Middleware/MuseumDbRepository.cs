@@ -1,6 +1,6 @@
 ﻿namespace CloudComutingUTN.Middleware
 {
-    public class Class1
+    public class MuseumDbRepository
     {
 
     }
