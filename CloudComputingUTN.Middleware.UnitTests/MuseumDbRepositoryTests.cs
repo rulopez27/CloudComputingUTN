@@ -13,6 +13,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
         SQLiteDbContext CreateContext() => new SQLiteDbContext(_options);
         IMuseumDbRepository MuseumDbRepository;
         Artist newArtist;
+        Artwork newArtwork;
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -68,6 +69,15 @@ namespace CloudComputingUTN.Middleware.UnitTests
                     }
                 }
             };
+
+            newArtwork = new Artwork
+            {
+                ArtworkName = "Lorem Ipsum",
+                ArtworkDescription = "Lorem ipsum dolor sit amet",
+                ArtworkYear = DateTime.Now.Year,
+                ArtworkURL = "http://loremipsum.lorem",
+                ArtistId = 1
+            };
         }
 
         [Test]
@@ -89,6 +99,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
         {
             var artist = await MuseumDbRepository.CreateArtist(newArtist);
             Assert.That(artist.ArtistId, Is.Not.EqualTo(0));
+        }
+
+        [Test]
+        public async Task CreateArtwork_WhenCalled_ReturnsCreatedArtwork()
+        {
+            var artwork = await MuseumDbRepository.CreateArtwork(newArtwork);
+            Assert.That(artwork.ArtworkId, Is.Not.EqualTo(0));
         }
     }
 }
