@@ -1,6 +1,6 @@
 namespace CloudComputingUTN.Middleware.UnitTests
 {
-    public class Tests
+    public class MuseumDbRepositoryTests
     {
         [SetUp]
         public void Setup()
