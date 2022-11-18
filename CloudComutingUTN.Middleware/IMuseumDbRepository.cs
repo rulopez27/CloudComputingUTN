@@ -7,9 +7,9 @@ namespace CloudComputingUTN.Middleware
     {
         void CreateArtist(Artist artist);
         void CreateArtwork(Artwork artwork);
-        Artist GetArtistById(int artistId);
-        ICollection<Artist> GetArtists();
-        Artwork GetArtworkById(int artworkId);
-        ICollection<Artwork> GetArtworks();
+        Task<Artist> GetArtistById(int artistId);
+        Task<ICollection<Artist>> GetArtists();
+        Task<Artwork> GetArtworkById(int artworkId);
+        Task<ICollection<Artwork>> GetArtworks();
     }
 }
