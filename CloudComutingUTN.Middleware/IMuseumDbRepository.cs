@@ -1,5 +1,4 @@
 ﻿using CloudComputingUTN.Entities;
-using System.Collections;
 
 namespace CloudComputingUTN.Middleware
 {
