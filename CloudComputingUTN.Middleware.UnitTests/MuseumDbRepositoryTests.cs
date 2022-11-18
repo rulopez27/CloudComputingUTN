@@ -12,6 +12,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
         DbContextOptions _options;
         SQLiteDbContext CreateContext() => new SQLiteDbContext(_options);
         IMuseumDbRepository MuseumDbRepository;
+        Artist newArtist;
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -51,6 +52,22 @@ namespace CloudComputingUTN.Middleware.UnitTests
             }
             
             MuseumDbRepository = new MuseumDbRepository(CreateContext());
+
+            newArtist = new Artist
+            {
+                ArtistName = "Pablo Picasso",
+                ArtistWikiPage = "http://randourl.com/Picasso",
+                ArtworkGallery = new List<Artwork>()
+                {
+                    new Artwork
+                    {
+                        ArtworkName = "Guernica",
+                        ArtworkDescription = "Painted between may and june 1937 makes reference to Guernica bombing during civil war",
+                        ArtworkYear = 1937,
+                        ArtworkURL = "http://randomurl/Guernica"
+                    }
+                }
+            };
         }
 
         [Test]
@@ -65,6 +82,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
         {
             var artworks = await MuseumDbRepository.GetArtworks();
             Assert.IsNotEmpty(artworks);
+        }
+
+        [Test]
+        public async Task CreateArtist_WhenCalled_ReturnsCreatedArtist()
+        {
+            var artist = await MuseumDbRepository.CreateArtist(newArtist);
+            Assert.That(artist.ArtistId, Is.Not.EqualTo(0));
         }
     }
 }
