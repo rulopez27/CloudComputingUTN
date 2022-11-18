@@ -115,5 +115,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
             Assert.That(artist, Is.Not.Null);
             Assert.That(artist.ArtistName, Is.EqualTo("Leonardo Da Vinci"));
         }
+
+        [Test]
+        public void GetArtistById_ArtistDoesNotExists_ThrowsInvalidOperationException()
+        {
+            Exception exception =
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await MuseumDbRepository.GetArtistById(99));
+            Assert.That(exception.Message, Is.EqualTo("Sequence contains no elements."));
+        }
     }
 }
