@@ -13,7 +13,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
         SQLiteDbContext CreateContext() => new SQLiteDbContext(_options);
         IMuseumDbRepository MuseumDbRepository;
         public void Dispose() => _connection.Dispose();
-        
+
         [SetUp]
         public void Setup()
         {
@@ -58,6 +58,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
         {
             var artists = await MuseumDbRepository.GetArtists();
             Assert.IsNotEmpty(artists);
+        }
+
+        [Test]
+        public async Task GetArtworks_WhenCalled_ReturnsCollectionOfArtworks()
+        {
+            var artworks = await MuseumDbRepository.GetArtworks();
+            Assert.IsNotEmpty(artworks);
         }
     }
 }
