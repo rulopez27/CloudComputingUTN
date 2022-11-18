@@ -107,5 +107,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
             var artwork = await MuseumDbRepository.CreateArtwork(newArtwork);
             Assert.That(artwork.ArtworkId, Is.Not.EqualTo(0));
         }
+
+        [Test]
+        public async Task GetArtistById_ArtistExists_ReturnsFoundArtist()
+        {
+            var artist = await MuseumDbRepository.GetArtistById(1);
+            Assert.That(artist, Is.Not.Null);
+            Assert.That(artist.ArtistName, Is.EqualTo("Leonardo Da Vinci"));
+        }
     }
 }
