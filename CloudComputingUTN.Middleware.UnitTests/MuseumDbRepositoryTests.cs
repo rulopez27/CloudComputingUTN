@@ -131,5 +131,13 @@ namespace CloudComputingUTN.Middleware.UnitTests
             Assert.That(artwork, Is.Not.Null);
             Assert.That(artwork.ArtworkName, Is.EqualTo("La Gioconda"));
         }
+
+        [Test]
+        public void GetArtworkById_ArtworkDoesNotExists_ThrowsInvalidOperationException()
+        {
+            Exception exception =
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await MuseumDbRepository.GetArtworkById(99));
+            Assert.That(exception.Message, Is.EqualTo("Sequence contains no elements."));
+        }
     }
 }
