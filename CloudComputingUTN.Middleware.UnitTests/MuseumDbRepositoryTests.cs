@@ -14,6 +14,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
         IMuseumDbRepository MuseumDbRepository;
         Artist newArtist;
         Artwork newArtwork;
+        Artist existingArtist;
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -50,6 +51,8 @@ namespace CloudComputingUTN.Middleware.UnitTests
                 }
                 );
                 context.SaveChanges();
+
+                existingArtist = context.Artists.FirstOrDefault();
             }
             
             MuseumDbRepository = new MuseumDbRepository(CreateContext());
@@ -78,6 +81,8 @@ namespace CloudComputingUTN.Middleware.UnitTests
                 ArtworkURL = "http://loremipsum.lorem",
                 ArtistId = 1
             };
+
+            
         }
 
         [Test]
@@ -138,6 +143,14 @@ namespace CloudComputingUTN.Middleware.UnitTests
             Exception exception =
             Assert.ThrowsAsync<InvalidOperationException>(async () => await MuseumDbRepository.GetArtworkById(99));
             Assert.That(exception.Message, Is.EqualTo("Sequence contains no elements."));
+        }
+
+        [Test]
+        public async Task UpdateArtist_NameChanged_ReturnsUpdatedArtist()
+        {
+            existingArtist.ArtistName = "Test name";
+            Artist artist = await MuseumDbRepository.UpdateArtist(existingArtist);
+            Assert.That(artist.ArtistName, Is.EqualTo("Test name"));
         }
     }
 }
