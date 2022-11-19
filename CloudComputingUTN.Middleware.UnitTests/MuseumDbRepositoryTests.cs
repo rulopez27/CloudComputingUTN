@@ -15,6 +15,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
         Artist newArtist;
         Artwork newArtwork;
         Artist existingArtist;
+        Artwork existingArtwork;
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -25,34 +26,37 @@ namespace CloudComputingUTN.Middleware.UnitTests
             _connection.Open();
 
             _options = new DbContextOptionsBuilder<BaseDbContext>().UseSqlite(_connection).Options;
-            
-            using var context = new SQLiteDbContext(_options);
-            if (context.Database.EnsureCreated())
+
+            using (var context = new SQLiteDbContext(_options))
             {
-                context.AddRange(
-                new Artist
+                if (context.Database.EnsureCreated())
                 {
-                    ArtistName = "Leonardo Da Vinci",
-                    ArtistWikiPage = "https://mockurl.com/DaVinci",
-                    ArtworkGallery = new List<Artwork>()
-                        {
+                    context.AddRange(
+                    new Artist
+                    {
+                        ArtistName = "Leonardo Da Vinci",
+                        ArtistWikiPage = "https://mockurl.com/DaVinci",
+                        ArtworkGallery = new List<Artwork>()
+                            {
                             new Artwork{ ArtworkName = "La Gioconda",  ArtworkYear = 1519, ArtworkDescription = "Da Vinci's most famous paint"}
-                        }
-                },
-                new Artist
-                {
-                    ArtistName = "Vincent Van Gogh",
-                    ArtistWikiPage = "https://mockurl.com/VanGogh",
-                    ArtworkGallery = new List<Artwork>()
-                        {
+                            }
+                    },
+                    new Artist
+                    {
+                        ArtistName = "Vincent Van Gogh",
+                        ArtistWikiPage = "https://mockurl.com/VanGogh",
+                        ArtworkGallery = new List<Artwork>()
+                            {
                             new Artwork{ ArtworkName = "The Starry Night",  ArtworkYear = 1889, ArtworkDescription = "Van Gogh's most famous paint"},
                             new Artwork{ ArtworkName = "The Sunflowers",  ArtworkYear = 1888, ArtworkDescription = "Van Gogh's first paintings"}
-                        }
-                }
-                );
-                context.SaveChanges();
+                            }
+                    }
+                    );
+                    context.SaveChanges();
 
-                existingArtist = context.Artists.FirstOrDefault();
+                    existingArtist = context.Artists.FirstOrDefault();
+                    existingArtwork = context.Artworks.FirstOrDefault();
+                }
             }
             
             MuseumDbRepository = new MuseumDbRepository(CreateContext());
