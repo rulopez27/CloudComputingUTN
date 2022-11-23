@@ -7,7 +7,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CloudComputingUTN.DataBase"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Entities", "CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj", "{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware", "CloudComputingUTN.Middleware\CloudComputingUTN.Middleware.csproj", "{5067FD5D-331B-48D3-90C2-3EF16442554B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware", "CloudComuptingUTN.Middleware\CloudComputingUTN.Middleware.csproj", "{5067FD5D-331B-48D3-90C2-3EF16442554B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware.UnitTests", "CloudComputingUTN.Middleware.UnitTests\CloudComputingUTN.Middleware.UnitTests.csproj", "{50CF8579-7174-4078-8F48-CCAD703102C0}"
 EndProject
