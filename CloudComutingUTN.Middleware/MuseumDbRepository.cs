@@ -5,8 +5,8 @@ namespace CloudComputingUTN.Middleware
 {
     public class MuseumDbRepository : IMuseumDbRepository, IDisposable
     {
-        internal BaseDbContext dbContext;
-        public MuseumDbRepository(BaseDbContext dbContext)
+        internal MuseumDbContext dbContext;
+        public MuseumDbRepository(MuseumDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

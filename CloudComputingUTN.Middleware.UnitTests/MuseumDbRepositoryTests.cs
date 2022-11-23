@@ -10,7 +10,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
     {
         DbConnection _connection;
         DbContextOptions _options;
-        SQLiteDbContext CreateContext() => new SQLiteDbContext(_options);
+        MuseumDbContext CreateContext() => new MuseumDbContext(_options);
         IMuseumDbRepository MuseumDbRepository;
         Artist newArtist;
         Artwork newArtwork;
@@ -25,9 +25,9 @@ namespace CloudComputingUTN.Middleware.UnitTests
             _connection = new SqliteConnection("Filename=:memory:");
             _connection.Open();
 
-            _options = new DbContextOptionsBuilder<BaseDbContext>().UseSqlite(_connection).Options;
+            _options = new DbContextOptionsBuilder<MuseumDbContext>().UseSqlite(_connection).Options;
 
-            using (var context = new SQLiteDbContext(_options))
+            using (var context = new MuseumDbContext(_options))
             {
                 if (context.Database.EnsureCreated())
                 {
