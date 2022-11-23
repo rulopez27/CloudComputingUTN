@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middlewar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware.UnitTests", "CloudComputingUTN.Middleware.UnitTests\CloudComputingUTN.Middleware.UnitTests.csproj", "{50CF8579-7174-4078-8F48-CCAD703102C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.WebApp", "CloudComputingUTN.WebApp\CloudComputingUTN.WebApp.csproj", "{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{50CF8579-7174-4078-8F48-CCAD703102C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50CF8579-7174-4078-8F48-CCAD703102C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50CF8579-7174-4078-8F48-CCAD703102C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
