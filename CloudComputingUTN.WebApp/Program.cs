@@ -1,4 +1,12 @@
+using CloudComputingUTN.Middleware;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+
+builder.Services.AddScoped<IMuseumDbRepository,MuseumDbRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
