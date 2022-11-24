@@ -43,15 +43,14 @@
                 @Html.DisplayFor(modelItem => item.ArtworkDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArtworkURL)
+                <a href="@item.ArtworkURL" target="_blank">Browse</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Artist.ArtistName)
+                <a asp-controller="Artists" asp-action="Details" asp-route-id="@item.ArtistId">@item.Artist.ArtistName</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ArtworkId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArtworkId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ArtworkId">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.ArtworkId">Details</a>
             </td>
         </tr>
 }
