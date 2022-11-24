@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using CloudComputingUTN.Entities;
-using CloudComputingUTN.WebApp.Data;
 using CloudComputingUTN.Middleware;
 
 namespace CloudComputingUTN.WebApp.Controllers
@@ -32,6 +26,10 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!id.HasValue)
+            {
+                return Problem("Entity set 'MuseumDbContext.Artworks' is null");
+            }
             var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
             if (id == null || artwork == null)
             {
@@ -70,7 +68,7 @@ namespace CloudComputingUTN.WebApp.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             var artists = await MuseumDbRepository.GetArtists();
-            var artwork = MuseumDbRepository.GetArtworkById(id.Value);
+            var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
             if (id == null || artwork == null)
             {
                 return NotFound();
