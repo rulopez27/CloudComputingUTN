@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
 
-namespace CloudComputingUTN.WebApp
+namespace CloudComputingUTN.WebApp.Controllers
 {
     public class ArtistsController : Controller
     {
@@ -16,7 +16,7 @@ namespace CloudComputingUTN.WebApp
 
         public ArtistsController(IMuseumDbRepository repository)
         {
-            this.MuseumDbRepository = repository;
+            MuseumDbRepository = repository;
         }
 
 
@@ -24,14 +24,15 @@ namespace CloudComputingUTN.WebApp
         public async Task<IActionResult> Index()
         {
             var artists = await MuseumDbRepository.GetArtists();
-              return artists != null ? 
-                          View(artists.ToList()) :
-                          Problem("Entity set 'MuseumDbContext.Artists'  is null.");
+            return artists != null ?
+                        View(artists.ToList()) :
+                        Problem("Entity set 'MuseumDbContext.Artists'  is null.");
         }
 
         // GET: Artists/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             if (id == null || await MuseumDbRepository.GetArtists() == null)
             {
                 return NotFound();

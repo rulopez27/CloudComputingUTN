@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj" />
-    <ProjectReference Include="..\CloudComutingUTN.Middleware\CloudComputingUTN.Middleware.csproj" />
+    <ProjectReference Include="..\CloudComuptingUTN.Middleware\CloudComputingUTN.Middleware.csproj" />
   </ItemGroup>
 
 </Project>
