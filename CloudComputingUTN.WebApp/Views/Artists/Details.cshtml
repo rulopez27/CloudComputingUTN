@@ -25,6 +25,47 @@
     </dl>
 </div>
 <div>
+    <h4>Artwork Gallery</h4>
+    <hr/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkURL)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ArtworkGallery)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtworkName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtworkYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtworkDescription)
+                    </td>
+                    <td>
+                        <a href="@item.ArtworkURL" target="_blank">Browse</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
     <a asp-action="Edit" asp-route-id="@Model?.ArtistId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
