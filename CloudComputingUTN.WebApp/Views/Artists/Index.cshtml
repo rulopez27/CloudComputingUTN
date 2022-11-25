@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.ArtistName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArtistWikiPage)
+                <a href="@item.ArtistWikiPage" target="_blank">@item.ArtistWikiPage</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ArtistId">Edit</a> |
