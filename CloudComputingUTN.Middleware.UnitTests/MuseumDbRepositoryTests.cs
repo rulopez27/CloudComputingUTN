@@ -14,8 +14,12 @@ namespace CloudComputingUTN.Middleware.UnitTests
         IMuseumDbRepository MuseumDbRepository;
         Artist newArtist;
         Artwork newArtwork;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         Artist existingArtist;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         Artwork existingArtwork;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -54,8 +58,12 @@ namespace CloudComputingUTN.Middleware.UnitTests
                     );
                     context.SaveChanges();
 
+#pragma warning disable CS8601 // Possible null reference assignment.
                     existingArtist = context.Artists.FirstOrDefault();
+#pragma warning restore CS8601 // Possible null reference assignment.
+#pragma warning disable CS8601 // Possible null reference assignment.
                     existingArtwork = context.Artworks.FirstOrDefault();
+#pragma warning restore CS8601 // Possible null reference assignment.
                 }
             }
             

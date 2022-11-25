@@ -67,14 +67,18 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var artists = await MuseumDbRepository.GetArtists();
-            var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
-            if (id == null || artwork == null)
+            if (id.HasValue)
             {
-                return NotFound();
+                var artists = await MuseumDbRepository.GetArtists();
+                var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
+                if (artwork == null)
+                {
+                    return NotFound();
+                }
+                ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
+                return View(artwork);
             }
-            ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
-            return View(artwork);
+            return NotFound();
         }
 
         // POST: Artworks/Edit/5
