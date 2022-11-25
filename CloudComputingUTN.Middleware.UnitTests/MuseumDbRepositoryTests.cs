@@ -9,7 +9,7 @@ namespace CloudComputingUTN.Middleware.UnitTests
     public class MuseumDbRepositoryTests
     {
         DbConnection _connection;
-        DbContextOptions _options;
+        DbContextOptions<MuseumDbContext> _options;
         MuseumDbContext CreateContext() => new MuseumDbContext(_options);
         IMuseumDbRepository MuseumDbRepository;
         Artist newArtist;
