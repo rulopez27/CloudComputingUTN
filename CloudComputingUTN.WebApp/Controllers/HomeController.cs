@@ -7,14 +7,17 @@ namespace CloudComputingUTN.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration Configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            this.Configuration = configuration;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Environment = Configuration["Environment"];
             return View();
         }
 
