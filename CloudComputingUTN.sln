@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middlewar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware.UnitTests", "CloudComputingUTN.Middleware.UnitTests\CloudComputingUTN.Middleware.UnitTests.csproj", "{50CF8579-7174-4078-8F48-CCAD703102C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.WebApp", "CloudComputingUTN.WebApp\CloudComputingUTN.WebApp.csproj", "{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.WebApp", "CloudComputingUTN.WebApp\CloudComputingUTN.WebApp.csproj", "{F69AC2F8-4F51-4FF0-B5DD-42350E4571BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

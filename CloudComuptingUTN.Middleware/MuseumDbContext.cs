@@ -5,7 +5,7 @@ namespace CloudComputingUTN.Middleware
 {
     public class MuseumDbContext : DbContext
     {
-        public MuseumDbContext(DbContextOptions options) :base(options) { }
+        public MuseumDbContext(DbContextOptions<MuseumDbContext> options) :base(options) { }
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Artwork> Artworks { get; set; }
 
