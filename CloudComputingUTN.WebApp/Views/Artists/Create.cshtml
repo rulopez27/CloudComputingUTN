@@ -1,9 +1,9 @@
-﻿@model CloudComputingUTN.Entities.Artist
+﻿@model CloudComputingUTN.WebApp.Models.ArtistViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
-
+<partial name="_Alert"/>
 <h1>Create</h1>
 
 <h4>Artist</h4>
@@ -13,14 +13,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ArtistName" class="control-label"></label>
-                <input asp-for="ArtistName" class="form-control" />
-                <span asp-validation-for="ArtistName" class="text-danger"></span>
+                <label asp-for="Artist.ArtistName" class="control-label"></label>
+                <input asp-for="Artist.ArtistName" class="form-control" />
+                <span asp-validation-for="Artist.ArtistName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtistWikiPage" class="control-label"></label>
-                <input asp-for="ArtistWikiPage" class="form-control" />
-                <span asp-validation-for="ArtistWikiPage" class="text-danger"></span>
+                <label asp-for="Artist.ArtistWikiPage" class="control-label"></label>
+                <input asp-for="Artist.ArtistWikiPage" class="form-control" />
+                <span asp-validation-for="Artist.ArtistWikiPage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
+using CloudComputingUTN.WebApp.Models;
 
 namespace CloudComputingUTN.WebApp.Controllers
 {
@@ -50,7 +51,7 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artists/Create
         public IActionResult Create()
         {
-            return View();
+            return View(new ArtistViewModel());
         }
 
         // POST: Artists/Create
@@ -58,14 +59,25 @@ namespace CloudComputingUTN.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArtistId,ArtistName,ArtistWikiPage")] Artist artist)
+        public async Task<IActionResult> Create([Bind("Artist, ClassName, Message, Title")] ArtistViewModel artistViewModel)
         {
             if (ModelState.IsValid)
             {
-                await MuseumDbRepository.CreateArtist(artist);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await MuseumDbRepository.CreateArtist(artistViewModel.Artist);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    return View(artistViewModel);
+                }
+                
             }
-            return View(artist);
+            return View(artistViewModel);
         }
 
         // GET: Artists/Edit/5
