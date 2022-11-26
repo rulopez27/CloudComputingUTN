@@ -22,7 +22,6 @@ namespace CloudComputingUTN.WebApp
 
             // Add services to the container.
             services.AddControllersWithViews();
-            services.AddSingleton<IConfiguration>(Configuration);
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
