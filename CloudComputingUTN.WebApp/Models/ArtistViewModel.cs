@@ -11,5 +11,13 @@ namespace CloudComputingUTN.WebApp.Models
             Message = "";
             ClassName = "";
         }
+
+        public ArtistViewModel(Artist artist)
+        {
+            Title = "";
+            Message = "";
+            ClassName = "";
+            Artist = artist;
+        }
     }
 }

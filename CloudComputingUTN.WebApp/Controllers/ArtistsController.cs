@@ -93,7 +93,8 @@ namespace CloudComputingUTN.WebApp.Controllers
             {
                 return NotFound();
             }
-            return View(artist);
+            ArtistViewModel artistViewModel = new ArtistViewModel(artist);
+            return View(artistViewModel);
         }
 
         // POST: Artists/Edit/5
@@ -101,9 +102,9 @@ namespace CloudComputingUTN.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArtistId,ArtistName,ArtistWikiPage")] Artist artist)
+        public async Task<IActionResult> Edit(int id, [Bind("Artist, ClassName, Message, Title")] ArtistViewModel artistViewModel)
         {
-            if (id != artist.ArtistId)
+            if (id != artistViewModel.Artist.ArtistId)
             {
                 return NotFound();
             }
@@ -117,15 +118,18 @@ namespace CloudComputingUTN.WebApp.Controllers
                     {
                         return NotFound();
                     }
-                    await MuseumDbRepository.UpdateArtist(artist);
+                    await MuseumDbRepository.UpdateArtist(artistViewModel.Artist);
                 }
-                catch
+                catch(Exception ex)
                 {
-                    throw;
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    return View(artistViewModel);
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(artist);
+            return View(artistViewModel);
         }
     }
 }
