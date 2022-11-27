@@ -4,7 +4,7 @@ CREATE TABLE Artists
 (
     ArtistId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     ArtistName VARCHAR(200),
-    ArtistWikiPage VARCHAR(65535)
+    ArtistWikiPage VARCHAR(3000)
 );
 
 CREATE UNIQUE INDEX IX_ArtistName ON Artists(ArtistName);
@@ -16,11 +16,11 @@ CREATE TABLE Artworks
     ArtworkName VARCHAR(200) NOT NULL,
     ArtworkYear INT,
     ArtworkDescription VARCHAR(300),
-    ArtworkURL VARCHAR(65535),
+    ArtworkURL VARCHAR(3000),
     FOREIGN KEY (ArtistId) REFERENCES Artists(ArtistID) ON DELETE CASCADE
 );
 
-CREATE UNIQUE INDEX IX_ArtworkName ON Artworks(ArtworkName);
+CREATE UNIQUE INDEX IX_ArtworkName ON Artworks(ArtistId, ArtworkName);
 
 SELECT @ArtistID;
 
