@@ -1,71 +1,73 @@
-﻿@model CloudComputingUTN.Entities.Artist
+﻿@model CloudComputingUTN.WebApp.Models.ArtistViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Artist</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArtistName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ArtistName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArtistWikiPage)
-        </dt>
-        <dd class = "col-sm-10">
-            <a href="@Model.ArtistWikiPage" target="_blank">@Model.ArtistWikiPage</a>
-        </dd>
-    </dl>
-</div>
-<div>
-    <h4>Artwork Gallery</h4>
-    <hr/>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkYear)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArtworkGallery.First().ArtworkURL)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ArtworkGallery)
-            {
+<partial name="_Alert"/>
+@if (Model.RecordFound)
+{
+    <h1>Details</h1>
+    <div>
+        <h4>Artist</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Artist.ArtistName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Artist.ArtistName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Artist.ArtistWikiPage)
+            </dt>
+            <dd class="col-sm-10">
+                <a href="@Model.Artist.ArtistWikiPage" target="_blank">@Model.Artist.ArtistWikiPage</a>
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <h4>Artwork Gallery</h4>
+        <hr />
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArtworkName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArtworkYear)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArtworkDescription)
-                    </td>
-                    <td>
-                        <a href="@item.ArtworkURL" target="_blank">Browse</a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Artist.ArtworkGallery.First().ArtworkName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Artist.ArtworkGallery.First().ArtworkYear)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Artist.ArtworkGallery.First().ArtworkDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Artist.ArtworkGallery.First().ArtworkURL)
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ArtistId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Artist.ArtworkGallery)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArtworkName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArtworkYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArtworkDescription)
+                        </td>
+                        <td>
+                            <a href="@item.ArtworkURL" target="_blank">Browse</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Artist.ArtistId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
