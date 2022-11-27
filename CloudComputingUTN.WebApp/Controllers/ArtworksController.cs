@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
+using CloudComputingUTN.WebApp.Models;
 
 namespace CloudComputingUTN.WebApp.Controllers
 {
@@ -44,7 +45,8 @@ namespace CloudComputingUTN.WebApp.Controllers
         {
             var artists = await MuseumDbRepository.GetArtists();
             ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
-            return View();
+            ArtworkViewModel artworkViewModel = new ArtworkViewModel();
+            return View(artworkViewModel);
         }
 
         // POST: Artworks/Create
@@ -52,16 +54,27 @@ namespace CloudComputingUTN.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArtworkId,ArtistId,ArtworkName,ArtworkYear,ArtworkDescription,ArtworkURL")] Artwork artwork)
+        public async Task<IActionResult> Create([Bind("Artwork, Title, Message, ClassName")] ArtworkViewModel model)
         {
+            ArtworkViewModel artworkViewModel = new ArtworkViewModel(model.Artwork);
             var artists = await MuseumDbRepository.GetArtists();
             if (ModelState.IsValid)
             {
-                await MuseumDbRepository.CreateArtwork(artwork);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await MuseumDbRepository.CreateArtwork(model.Artwork);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    artworkViewModel.ClassName = "alert alert-danger";
+                    artworkViewModel.Title = "Error";
+                    artworkViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", model.Artwork.ArtistId);
+                }
+                
             }
-            ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", artwork.ArtistId);
-            return View(artwork);
+            return View(artworkViewModel);
         }
 
         // GET: Artworks/Edit/5
@@ -76,7 +89,7 @@ namespace CloudComputingUTN.WebApp.Controllers
                     return NotFound();
                 }
                 ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
-                return View(artwork);
+                return View(new ArtworkViewModel(artwork));
             }
             return NotFound();
         }
@@ -86,10 +99,11 @@ namespace CloudComputingUTN.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArtworkId,ArtistId,ArtworkName,ArtworkYear,ArtworkDescription,ArtworkURL")] Artwork artwork)
+        public async Task<IActionResult> Edit(int id, [Bind("Artwork, Title, Message, ClassName")] ArtworkViewModel viewModel)
         {
             var artists = await MuseumDbRepository.GetArtists();
-            if (id != artwork.ArtworkId)
+            ArtworkViewModel artworkViewModel = new ArtworkViewModel(viewModel.Artwork);
+            if (id != viewModel.Artwork.ArtworkId)
             {
                 return NotFound();
             }
@@ -103,16 +117,20 @@ namespace CloudComputingUTN.WebApp.Controllers
                     {
                         return NotFound();
                     }
-                    await MuseumDbRepository.UpdateArtwork(artwork);
+                    await MuseumDbRepository.UpdateArtwork(viewModel.Artwork);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch
+                catch(Exception ex)
                 {
-                    throw;
+                    artworkViewModel.ClassName = "alert alert-danger";
+                    artworkViewModel.Title = "Error";
+                    artworkViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", viewModel.Artwork.ArtistId);
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
-            ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", artwork.ArtistId);
-            return View(artwork);
+            ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", artworkViewModel.Artwork.ArtistId);
+            return View(artworkViewModel);
         }
     }
 }

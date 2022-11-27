@@ -1,9 +1,9 @@
-﻿@model CloudComputingUTN.Entities.Artwork
+﻿@model CloudComputingUTN.WebApp.Models.ArtworkViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
-
+<partial name="_Alert" />
 <h1>Create</h1>
 
 <h4>Artwork</h4>
@@ -13,28 +13,28 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ArtistId" class="control-label"></label>
-                <select asp-for="ArtistId" class ="form-control" asp-items="ViewBag.ArtistId"></select>
+                <label asp-for="Artwork.ArtistId" class="control-label"></label>
+                <select asp-for="Artwork.ArtistId" class="form-control" asp-items="ViewBag.ArtistId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ArtworkName" class="control-label"></label>
-                <input asp-for="ArtworkName" class="form-control" />
-                <span asp-validation-for="ArtworkName" class="text-danger"></span>
+                <label asp-for="Artwork.ArtworkName" class="control-label"></label>
+                <input asp-for="Artwork.ArtworkName" class="form-control" />
+                <span asp-validation-for="Artwork.ArtworkName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtworkYear" class="control-label"></label>
-                <input asp-for="ArtworkYear" class="form-control" />
-                <span asp-validation-for="ArtworkYear" class="text-danger"></span>
+                <label asp-for="Artwork.ArtworkYear" class="control-label"></label>
+                <input asp-for="Artwork.ArtworkYear" class="form-control" />
+                <span asp-validation-for="Artwork.ArtworkYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtworkDescription" class="control-label"></label>
-                <input asp-for="ArtworkDescription" class="form-control" />
-                <span asp-validation-for="ArtworkDescription" class="text-danger"></span>
+                <label asp-for="Artwork.ArtworkDescription" class="control-label"></label>
+                <input asp-for="Artwork.ArtworkDescription" class="form-control" />
+                <span asp-validation-for="Artwork.ArtworkDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtworkURL" class="control-label"></label>
-                <input asp-for="ArtworkURL" class="form-control" />
-                <span asp-validation-for="ArtworkURL" class="text-danger"></span>
+                <label asp-for="Artwork.ArtworkURL" class="control-label"></label>
+                <input asp-for="Artwork.ArtworkURL" class="form-control" />
+                <span asp-validation-for="Artwork.ArtworkURL" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
