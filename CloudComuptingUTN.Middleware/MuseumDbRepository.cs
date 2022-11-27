@@ -64,6 +64,7 @@ namespace CloudComputingUTN.Middleware
                 Artist artist = await dbContext.Artists
                                     .Include(a => a.ArtworkGallery)
                                     .SingleAsync(a => a.ArtistId == artistId);
+                dbContext.Entry(artist).State = EntityState.Detached;
                 return artist;
             }
             catch (Exception)
@@ -94,6 +95,7 @@ namespace CloudComputingUTN.Middleware
                 Artwork artwork = await dbContext.Artworks
                                     .Include(a => a.Artist)
                                     .SingleAsync(a => a.ArtworkId == artworkId);
+                dbContext.Entry(artwork).State = EntityState.Detached;
                 return artwork;
             }
             catch (Exception)
