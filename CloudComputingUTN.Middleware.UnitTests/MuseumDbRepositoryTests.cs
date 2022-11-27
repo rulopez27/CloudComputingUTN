@@ -166,11 +166,27 @@ namespace CloudComputingUTN.Middleware.UnitTests
         }
 
         [Test]
+        public async Task UpdateArtist_WikiURLChanged_ReturnsUpdatedArtist()
+        {
+            existingArtist.ArtistWikiPage = "https://wikiurl/";
+            Artist artist = await MuseumDbRepository.UpdateArtist(existingArtist);
+            Assert.That(artist.ArtistWikiPage, Is.EqualTo("https://wikiurl/"));
+        }
+
+        [Test]
         public async Task UpdateArtwork_NameChanged_ReturnsUpdatedArtwork()
         {
             existingArtwork.ArtworkName = "Test name";
             Artwork artwork = await MuseumDbRepository.UpdateArtwork(existingArtwork);
             Assert.That(artwork.ArtworkName, Is.EqualTo("Test name"));
+        }
+
+        [Test]
+        public async Task UpdateArtwork_ArtworkURLChanged_ReturnsUpdatedArtwork()
+        {
+            existingArtwork.ArtworkURL = "https://test/";
+            Artwork artwork = await MuseumDbRepository.UpdateArtwork(existingArtwork);
+            Assert.That(artwork.ArtworkURL, Is.EqualTo("https://test/"));
         }
     }
 }
