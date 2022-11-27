@@ -24,10 +24,20 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artists
         public async Task<IActionResult> Index()
         {
-            var artists = await MuseumDbRepository.GetArtists();
-            return artists != null ?
-                        View(artists.ToList()) :
-                        Problem("Entity set 'MuseumDbContext.Artists'  is null.");
+            ArtistsListViewModel artistsListViewModel = new ArtistsListViewModel();
+            try
+            {
+                var artists = await MuseumDbRepository.GetArtists();
+                artistsListViewModel.Artists = artists.ToList();
+            }
+            catch (Exception ex)
+            {
+                artistsListViewModel.ClassName = "alert alert-danger";
+                artistsListViewModel.Title = "Error";
+                artistsListViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+            return View(artistsListViewModel);
+            
         }
 
         // GET: Artists/Details/5
