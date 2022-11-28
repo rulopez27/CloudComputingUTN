@@ -9,6 +9,7 @@ namespace CloudComputingUTN.WebApp.Models
             Title = "";
             ClassName = "";
             Message = "";
+            Artwork = new Artwork();
         }
 
         public ArtworkViewModel(Artwork artwork)
