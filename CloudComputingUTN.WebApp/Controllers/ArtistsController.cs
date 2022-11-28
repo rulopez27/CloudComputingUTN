@@ -111,17 +111,36 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artists/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || await MuseumDbRepository.GetArtists() == null)
-            {
-                return NotFound();
-            }
 
-            var artist = await MuseumDbRepository.GetArtistById(id.Value);
-            if (artist == null)
+            ArtistViewModel artistViewModel = new ArtistViewModel();
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = "Invalid ID";
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.RecordFound = false;
+                    return View(artistViewModel);
+                }
+                var artist = await MuseumDbRepository.GetArtistById(id.Value);
+                if (artist == null)
+                {
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = "Record not found";
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.RecordFound = false;
+                    return View(artistViewModel);
+                }
+                artistViewModel.Artist = artist;
             }
-            ArtistViewModel artistViewModel = new ArtistViewModel(artist);
+            catch (Exception ex)
+            {
+                artistViewModel.ClassName = "alert alert-danger";
+                artistViewModel.Title = "Error";
+                artistViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                artistViewModel.RecordFound = false;
+            }
             return View(artistViewModel);
         }
 
