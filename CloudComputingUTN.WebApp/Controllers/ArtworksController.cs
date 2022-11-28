@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.Models;
+using CloudComputingUTN.Entities;
 
 namespace CloudComputingUTN.WebApp.Controllers
 {
@@ -117,18 +118,38 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id.HasValue)
+            ArtworkViewModel model = new ArtworkViewModel();
+            try
             {
-                var artists = await MuseumDbRepository.GetArtists();
+                if (!id.HasValue)
+                {
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Invalid argument";
+                }
                 var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
                 if (artwork == null)
                 {
-                    return NotFound();
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Entry not found";
+                    model.RecordFound = false;
                 }
-                ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
-                return View(new ArtworkViewModel(artwork));
+                else
+                {
+                    var artists = await MuseumDbRepository.GetArtists();
+                    model.Artwork = artwork;
+                    ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
+                }
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                model.ClassName = "alert alert-danger";
+                model.Title = "Error";
+                model.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                model.RecordFound = false;
+            }
+            return View(model);
         }
 
         // POST: Artworks/Edit/5
