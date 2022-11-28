@@ -10,6 +10,7 @@ namespace CloudComputingUTN.WebApp.Models
             ClassName = "";
             Message = "";
             Artwork = new Artwork();
+            RecordFound = true;
         }
 
         public ArtworkViewModel(Artwork artwork)
@@ -18,6 +19,7 @@ namespace CloudComputingUTN.WebApp.Models
             Title = "";
             ClassName = "";
             Message = "";
+            RecordFound = true;
         }
 
         public Artwork Artwork { get; set; }

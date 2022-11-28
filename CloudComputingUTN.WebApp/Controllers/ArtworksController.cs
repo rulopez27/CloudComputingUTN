@@ -36,17 +36,36 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (!id.HasValue)
+            ArtworkViewModel model = new ArtworkViewModel();
+            try
             {
-                return Problem("Entity set 'MuseumDbContext.Artworks' is null");
+                if (!id.HasValue)
+                {
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Invalid argument";
+                }
+                var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
+                if (artwork == null)
+                {
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Entry not found";
+                    model.RecordFound = false;
+                }
+                else
+                {
+                    model.Artwork = artwork;
+                }
             }
-            var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
-            if (id == null || artwork == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                model.ClassName = "alert alert-danger";
+                model.Title = "Error";
+                model.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                model.RecordFound = false;
             }
-
-            return View(artwork);
+            return View(model);
         }
 
         // GET: Artworks/Create
