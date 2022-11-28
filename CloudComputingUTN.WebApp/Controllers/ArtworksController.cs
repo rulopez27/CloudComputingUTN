@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.Models;
 
@@ -18,10 +17,20 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks
         public async Task<IActionResult> Index()
         {
-            var artworks = await MuseumDbRepository.GetArtworks();
-            return artworks != null ?
-                View(artworks.ToList())
-                : Problem("Entity set 'MuseumDbContext.Artworks' is null");
+            ArtworksListViewModel model = new ArtworksListViewModel();
+            try
+            {
+                var artworks = await MuseumDbRepository.GetArtworks();
+                model.Artworks = artworks.ToList();
+            }
+            catch (Exception ex)
+            {
+                model.ClassName = "alert alert-danger";
+                model.Title = "Error";
+                model.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+
+            return View(model);
         }
 
         // GET: Artworks/Details/5

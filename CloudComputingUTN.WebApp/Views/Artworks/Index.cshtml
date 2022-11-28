@@ -1,9 +1,9 @@
-﻿@model IEnumerable<CloudComputingUTN.Entities.Artwork>
+﻿@model CloudComputingUTN.WebApp.Models.ArtworksListViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
-
+<partial name="_Alert"/>
 <h1>Index</h1>
 
 <p>
@@ -13,25 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ArtworkName)
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().ArtworkName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArtworkYear)
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().ArtworkYear)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArtworkDescription)
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().ArtworkDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArtworkURL)
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().ArtworkURL)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Artist)
+                @Html.DisplayNameFor(model => model.Artworks.FirstOrDefault().Artist)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Artworks) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ArtworkName)
