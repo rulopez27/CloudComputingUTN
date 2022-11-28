@@ -71,10 +71,19 @@ namespace CloudComputingUTN.WebApp.Controllers
         // GET: Artworks/Create
         public async Task<IActionResult> Create()
         {
-            var artists = await MuseumDbRepository.GetArtists();
-            ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
-            ArtworkViewModel artworkViewModel = new ArtworkViewModel();
-            return View(artworkViewModel);
+            ArtworkViewModel model = new ArtworkViewModel();
+            try
+            {
+                var artists = await MuseumDbRepository.GetArtists();
+                ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName");
+            }
+            catch (Exception ex)
+            {
+                model.ClassName = "alert alert-danger";
+                model.Title = "Error";
+                model.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+            return View(model);
         }
 
         // POST: Artworks/Create
