@@ -45,6 +45,8 @@ namespace CloudComputingUTN.WebApp.Controllers
                     model.ClassName = "alert alert-danger";
                     model.Title = "Error";
                     model.Message = "Invalid argument";
+                    model.RecordFound = false;
+                    return View(model);
                 }
                 var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
                 if (artwork == null)
@@ -126,6 +128,8 @@ namespace CloudComputingUTN.WebApp.Controllers
                     model.ClassName = "alert alert-danger";
                     model.Title = "Error";
                     model.Message = "Invalid argument";
+                    model.RecordFound = false;
+                    return View(model);
                 }
                 var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
                 if (artwork == null)
