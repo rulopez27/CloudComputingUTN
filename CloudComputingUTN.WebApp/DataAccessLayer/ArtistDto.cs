@@ -1,4 +1,6 @@
-﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿using CloudComputingUTN.Entities;
+
+namespace CloudComputingUTN.WebApp.DataAccessLayer
 {
     public class ArtistDto : DtoBase
     {

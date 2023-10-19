@@ -1,8 +1,9 @@
-﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿using CloudComputingUTN.WebApp.DataAccessLayer.HATEOAS;
+
+namespace CloudComputingUTN.WebApp.DataAccessLayer
 {
     public class DtoBase
     {
-        public string Self { get; set; }
-        public List<string> Links { get; set; }
+        public List<Link>  Links { get; set; } = new List<Link>();
     }
 }
