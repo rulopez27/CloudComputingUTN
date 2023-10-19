@@ -22,6 +22,7 @@ namespace CloudComputingUTN.WebApp
 
             // Add services to the container.
             services.AddControllersWithViews();
+            services.AddOpenApiDocument();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -46,6 +47,12 @@ namespace CloudComputingUTN.WebApp
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            if(env.IsDevelopment())
+            {
+                app.UseOpenApi();
+                app.UseSwaggerUi3();
+            }
         }
     }
 }
