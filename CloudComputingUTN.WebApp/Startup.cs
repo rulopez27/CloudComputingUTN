@@ -1,6 +1,7 @@
 ﻿using CloudComputingUTN.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using NSwag;
 
 namespace CloudComputingUTN.WebApp
 {
@@ -22,7 +23,16 @@ namespace CloudComputingUTN.WebApp
 
             // Add services to the container.
             services.AddControllersWithViews();
-            services.AddOpenApiDocument();
+            services.AddOpenApiDocument(options => {
+                options.PostProcess = document =>
+                {
+                    document.Info = new OpenApiInfo
+                    {
+                        Title = "CloudComputing.Web.Api",
+                        Description = "API del Sitio Web ArtMuseum"
+                    };
+                };
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
