@@ -14,20 +14,20 @@ El prop&oacute;sito de este proyecto es demostrar una aplicaci&oacute;n Web MVC 
 ## Recomendaciones
 El proyecto est&aacute; hecho en .NET 7, por lo que es importante instalar tanto el SDK como el ASP.NET Core Runtime antes de ejecutarlo si no cuentas con ello. Puedes verificar si tienes el SDK instalado ejecutando el siguiente comando en la terminal o Powershell:
 
-> dotnet --info
+```dotnet --info```
 
 En caso de estar instalado, el comando regresar&aacute; algo parecido a esto:
-><code>
-.NET SDK:\
-Version:   8.0.100-rc.2.23502.2\
-Commit:    0abacfc2b6\
+```NET SDK:
+Version:   8.0.100-rc.2.23502.2
+Commit:    0abacfc2b6
 Runtime Environment:\
 OS Name:     Windows\
 OS Version:  10.0.19045\
 OS Platform: Windows\
 RID:         win-x64\
 Base Path:   C:\Program Files\dotnet\sdk\8.0.100-rc.2.23502.2\
-</code>
+```
+
 
 En caso de no tener una respuesta similar a la anterior:
 -   Puedes [descargar .NET 7.0](https://dotnet.microsoft.com/es-es/download/dotnet/7.0).
