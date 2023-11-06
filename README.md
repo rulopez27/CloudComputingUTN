@@ -19,7 +19,7 @@ dotnet --info
 ```
 
 En caso de estar instalado, el comando regresar&aacute; algo parecido a esto:\
-![Alt text](readme\dotnet_info_output.png)
+![Respuesta del comando dotnet --info en PowerShell](readme/dotnet_info_output.png)
 
 
 
