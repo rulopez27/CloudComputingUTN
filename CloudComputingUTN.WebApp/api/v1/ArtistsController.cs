@@ -2,6 +2,7 @@
 using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.DataAccessLayer;
+using CloudComputingUTN.WebApp.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,10 +15,12 @@ namespace CloudComputingUTN.WebApp.api.v1
     {
         private IMuseumDbRepository museumDbRepository;
         private IMapper _mapper;
-        public ArtistsController(IMuseumDbRepository repository, IMapper mapper)
+        private IHttpContextAccessor _contextAccessor;
+        public ArtistsController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             museumDbRepository = repository;
             _mapper = mapper;
+            _contextAccessor = httpContextAccessor;
         }
 
         // GET api/<ArtistsController>/5
@@ -26,17 +29,13 @@ namespace CloudComputingUTN.WebApp.api.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
                 if (id == 0)
                 {
                     return BadRequest();
                 }
                 var artist = await museumDbRepository.GetArtistById(id);
                 var artistDto = _mapper.Map<ArtistDto>(artist);
-                
-                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Get"), "self", "GET"));
-                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Post"), "create", "POST"));
-                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Put", "Artists", new { id }), "update", "PUT"));
+                artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
 
                 return Ok(artistDto);
             }
@@ -78,7 +77,7 @@ namespace CloudComputingUTN.WebApp.api.v1
         }
 
         // PUT api/<ArtistsController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] Artist value, LinkGenerator linkGenerator)
         {
             try
