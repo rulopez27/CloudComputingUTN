@@ -11,3 +11,9 @@ USE [MuseumDb]
 GO
 CREATE USER [museumDb_Developer] FOR LOGIN [museumDb_Developer]
 GO
+ALTER ROLE [db_datareader] ADD MEMBER [museumDb_Developer]
+GO
+USE [MuseumDb]
+GO
+ALTER ROLE [db_datawriter] ADD MEMBER [museumDb_Developer]
+GO
