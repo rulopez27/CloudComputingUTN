@@ -68,6 +68,7 @@
     <PostDeploy Include="PostDeployScripts\DatabaseSetup.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CloudComputingUTN.DataBase.publish.xml" />
+    <None Include="MuseumDb.sql" />
+    <None Include="SQL_Login_Setup.sql" />
   </ItemGroup>
 </Project>
