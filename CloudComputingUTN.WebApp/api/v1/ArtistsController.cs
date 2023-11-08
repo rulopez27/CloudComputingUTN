@@ -22,16 +22,22 @@ namespace CloudComputingUTN.WebApp.api.v1
 
         // GET api/<ArtistsController>/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(int id, LinkGenerator linkGenerator)
         {
             try
             {
+                HttpContext context = Request.HttpContext;
                 if (id == 0)
                 {
                     return BadRequest();
                 }
                 var artist = await museumDbRepository.GetArtistById(id);
                 var artistDto = _mapper.Map<ArtistDto>(artist);
+                
+                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Get"), "self", "GET"));
+                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Post"), "create", "POST"));
+                artistDto.Links.Add(new Link(linkGenerator.GetUriByAction(context, "Put", "Artists", new { id }), "update", "PUT"));
+
                 return Ok(artistDto);
             }
             catch(InvalidOperationException ioex)
@@ -52,14 +58,41 @@ namespace CloudComputingUTN.WebApp.api.v1
 
         // POST api/<ArtistsController>
         [HttpPost]
-        public void Post([FromBody] Artist value)
+        public async Task<IActionResult> Post([FromBody] Artist value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+
+                await museumDbRepository.CreateArtist(value);
+                string uri = linkGenerator.GetUriByAction(context, "Get", "Artists", new {id = value.ArtistId});
+
+                return Created(uri, value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // PUT api/<ArtistsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Artist value)
+        public async Task<IActionResult> Put([FromBody] Artist value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+                await museumDbRepository.UpdateArtist(value);
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
     }
 }
