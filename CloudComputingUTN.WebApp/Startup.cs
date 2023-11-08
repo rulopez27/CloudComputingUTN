@@ -1,5 +1,5 @@
 ﻿using CloudComputingUTN.Middleware;
-using Microsoft.AspNetCore.Builder;
+using CloudComputingUTN.WebApp.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using NSwag;
 
@@ -16,10 +16,18 @@ namespace CloudComputingUTN.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<DbContext,MuseumDbContext>();
+
+            ///TODO: Si vas a usar MySQL descomenta la siguiente línea de código
+            //services
+            //    .AddDbContext<MuseumDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+
+            ///TODO: Si vas a usar Microsoft SQL Server, descomenta la siguiente línea de código
             services
-                .AddDbContext<MuseumDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+                .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
 
             services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ILinkService, LinkService>();
 
             // Add services to the container.
             services.AddControllersWithViews();
@@ -29,7 +37,7 @@ namespace CloudComputingUTN.WebApp
                     document.Info = new OpenApiInfo
                     {
                         Title = "CloudComputing.Web.Api",
-                        Description = "API del Sitio Web ArtMuseum"
+                        Description = "API del Sitio Web MuseumDb"
                     };
                 };
             });
