@@ -13,6 +13,7 @@ namespace CloudComputingUTN.WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewData["HostName"] = Request.Host.Host;
             return View();
         }
 
