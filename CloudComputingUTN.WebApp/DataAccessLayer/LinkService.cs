@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Routing;
-using System.Runtime.CompilerServices;
-
-namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
 {
     internal sealed class LinkService : ILinkService
     {
