@@ -1,6 +1,4 @@
-﻿using CloudComputingUTN.WebApp.DataAccessLayer.HATEOAS;
-
-namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
 {
     public class DtoBase
     {
