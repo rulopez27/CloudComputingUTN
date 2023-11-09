@@ -93,5 +93,23 @@ namespace CloudComputingUTN.WebApp.api.v1
                 return StatusCode(500, errorMessage);
             }
         }
+
+        //DELETE api/<ArtistsController>/5
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+                bool deleted = await museumDbRepository.DeleteArtist(id);
+                return Ok("Artista borrado");
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
+        }
     }
 }
