@@ -1,10 +1,10 @@
 ﻿@model CloudComputingUTN.WebApp.Models.ArtistsListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Artistas";
 }
 <partial name="_Alert"/>
-<h1>Index</h1>
+<h1>Artists</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,7 +32,8 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ArtistId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArtistId">Details</a>
+                <a asp-action="Details" asp-route-id="@item.ArtistId">Details</a> |
+                <a asp-action="DeleteArtist" asp-route-id="@item.ArtistId">Delete</a>
             </td>
         </tr>
 }

@@ -178,5 +178,66 @@ namespace CloudComputingUTN.WebApp.Controllers
             }
             return View(artistViewModel);
         }
+
+        //GET Artists/Delete/5
+        [ActionName("DeleteArtist")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            ArtistViewModel artistViewModel = new ArtistViewModel();
+            try
+            {
+                if (id == null)
+                {
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = "Invalid ID";
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.RecordFound = false;
+                    return View(artistViewModel);
+                }
+                var artist = await MuseumDbRepository.GetArtistById(id.Value);
+                if (artist == null)
+                {
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = "Record not found";
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.RecordFound = false;
+                    return View(artistViewModel);
+                }
+                artistViewModel.Artist = artist;
+            }
+            catch (Exception ex)
+            {
+                artistViewModel.ClassName = "alert alert-danger";
+                artistViewModel.Title = "Error";
+                artistViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                artistViewModel.RecordFound = false;
+            }
+            return View("Delete", artistViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeletingArtist")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            ArtistViewModel artistViewModel = new ArtistViewModel();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await MuseumDbRepository.DeleteArtist(id);
+                }
+                catch (Exception ex)
+                {
+                    artistViewModel.ClassName = "alert alert-danger";
+                    artistViewModel.Title = "Error";
+                    artistViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    return View("Delete",artistViewModel);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(artistViewModel);
+        }
     }
 }
