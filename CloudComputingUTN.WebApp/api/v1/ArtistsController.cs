@@ -23,6 +23,29 @@ namespace CloudComputingUTN.WebApp.api.v1
             _contextAccessor = httpContextAccessor;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get(LinkGenerator linkGenerator)
+        {
+            try
+            {
+                var artists = await museumDbRepository.GetArtists();
+                List<ArtistDto> artistsDtos = new List<ArtistDto>();
+                foreach (var artist in artists)
+                {
+                    var artistDto = _mapper.Map<ArtistDto>(artist);
+                    artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
+                    artistsDtos.Add(artistDto);
+                }
+                return Ok(artistsDtos);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
+        }
+
         // GET api/<ArtistsController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id, LinkGenerator linkGenerator)
