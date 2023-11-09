@@ -148,5 +148,35 @@ namespace CloudComputingUTN.Middleware
                 throw;
             }
         }
+
+        public async Task<bool> DeleteArtist(int artistId)
+        {
+            try
+            {
+                var artist = await dbContext.Artists.SingleAsync(artist => artist.ArtistId == artistId);
+                dbContext.Artists.Remove(artist);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> DeleteArtwork(int artworkId)
+        {
+            try
+            {
+                var artwork = await dbContext.Artworks.SingleAsync(artwork => artwork.ArtworkId == artworkId);
+                dbContext.Artworks.Remove(artwork);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

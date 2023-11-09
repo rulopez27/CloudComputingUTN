@@ -180,5 +180,19 @@ namespace CloudComputingUTN.Middleware.UnitTests
             Artwork artwork = await MuseumDbRepository.UpdateArtwork(existingArtwork);
             Assert.That(artwork.ArtworkURL, Is.EqualTo("https://test/"));
         }
+
+        [Test]
+        public async Task DeleteArtist_WhenCalled_ReturnsTrue()
+        {
+            bool result = await MuseumDbRepository.DeleteArtist(1);
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public async Task DeleteArtwork_WhenCalled_ReturnsTrue()
+        {
+            bool result = await MuseumDbRepository.DeleteArtwork(1);
+            Assert.That(result, Is.True);
+        }
     }
 }

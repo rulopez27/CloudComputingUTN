@@ -12,5 +12,7 @@ namespace CloudComputingUTN.Middleware
         Task<Artwork> CreateArtwork(Artwork artwork);
         Task<Artist> UpdateArtist(Artist artist);
         Task<Artwork> UpdateArtwork(Artwork artwork);
+        Task<bool> DeleteArtist(int artistId);
+        Task<bool> DeleteArtwork(int artworkId);
     }
 }
