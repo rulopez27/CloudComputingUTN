@@ -1,5 +1,6 @@
 ﻿using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.DataAccessLayer;
+using CloudComputingUTN.WebApp.SQLite;
 using Microsoft.EntityFrameworkCore;
 using NSwag;
 
@@ -22,8 +23,13 @@ namespace CloudComputingUTN.WebApp
             //    .AddDbContext<MuseumDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
 
             ///TODO: Si vas a usar Microsoft SQL Server, descomenta la siguiente línea de código
-            services
-                .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
+            //services
+            //    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
+
+            ///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
+            SQLiteDbSetup sqliteDbSetup = new SQLiteDbSetup();
+            sqliteDbSetup.SetupInMemoryDatabase();
+            services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqliteDbSetup.GetDbConnection()));
 
             services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
             services.AddHttpContextAccessor();
