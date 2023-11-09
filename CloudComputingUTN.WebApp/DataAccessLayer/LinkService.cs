@@ -11,7 +11,7 @@
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Link Generate(string endpointName, string? controller, object? routeValues, string rel, string method)
+        public Link Generate(string endpointName, string controller, object routeValues, string rel, string method)
         {
             return new Link(_linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, endpointName, controller, routeValues), rel, method);
         }
