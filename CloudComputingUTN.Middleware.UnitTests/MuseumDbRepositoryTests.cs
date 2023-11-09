@@ -2,10 +2,14 @@ using CloudComputingUTN.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudComputingUTN.Middleware.UnitTests
 {
     [TestFixture]
+    [SuppressMessage("Structure",
+    "NUnit1032:An IDisposable field/property should be Disposed in a TearDown method",
+    Justification = "IMuseumDbRepository implementation does implement IDisposable")]
     public class MuseumDbRepositoryTests
     {
         DbConnection _connection;
@@ -16,6 +20,8 @@ namespace CloudComputingUTN.Middleware.UnitTests
         Artwork newArtwork;
         Artist existingArtist;
         Artwork existingArtwork;
+
+        [TearDown]
         public void Dispose() => _connection.Dispose();
 
         [SetUp]
@@ -60,7 +66,6 @@ namespace CloudComputingUTN.Middleware.UnitTests
             }
             
             MuseumDbRepository = new MuseumDbRepository(CreateContext());
-
             newArtist = new Artist
             {
                 ArtistName = "Pablo Picasso",
@@ -88,6 +93,8 @@ namespace CloudComputingUTN.Middleware.UnitTests
 
             
         }
+
+        
 
         [Test]
         public async Task GetArtists_WhenCalled_ReturnsCollectionOfArtists()
