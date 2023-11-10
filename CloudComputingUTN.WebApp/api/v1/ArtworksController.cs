@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.DataAccessLayer;
 using CloudComputingUTN.WebApp.Extensions;
@@ -50,27 +51,91 @@ namespace CloudComputingUTN.WebApp.api.v1
 
         // GET api/<ArtworksController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id, LinkGenerator linkGenerator)
         {
-            return "value";
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest();
+                }
+                var artwork = await museumDbRepository.GetArtworkById(id);
+                var artworkDto = _mapper.Map<ArtworkDto>(artwork);
+                artworkDto.CreateArtworkLinks(linkGenerator, _contextAccessor);
+                return Ok(artworkDto);
+            }
+            catch (InvalidOperationException ioex)
+            {
+                if (ioex.Message == "Sequence contains no elements.")
+                {
+                    return NotFound();
+                }
+                return StatusCode(500, ioex.Message);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // POST api/<ArtworksController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] Artwork value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+
+                await museumDbRepository.CreateArtwork(value);
+                string uri = linkGenerator.GetUriByAction(context, "Get", "Artworks", new { id = value.ArtworkId });
+
+                return Created(uri, value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // PUT api/<ArtworksController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] Artwork value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+
+                await museumDbRepository.UpdateArtwork(value);
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // DELETE api/<ArtworksController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+                bool deleted = await museumDbRepository.DeleteArtwork(id);
+                return Ok("Artwork deleted");
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                return StatusCode(500, errorMessage);
+
+            }
         }
     }
 }
