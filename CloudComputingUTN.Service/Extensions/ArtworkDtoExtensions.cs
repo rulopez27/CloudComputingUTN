@@ -1,8 +1,6 @@
 ﻿using CloudComputingUTN.DataAccessLayer;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
-namespace CloudComputingUTN.DataAccessLayer.Extensions
+namespace CloudComputingUTN.Service.Extensions
 {
     public static class ArtworkDtoExtensions
     {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CloudComputingUTN.DataAccessLayer\CloudComputingUTN.DataAccessLayer.csproj" />
     <ProjectReference Include="..\CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj" />
+    <ProjectReference Include="..\CloudComputingUTN.Sqlite\CloudComputingUTN.Sqlite.csproj" />
     <ProjectReference Include="..\CloudComuptingUTN.Middleware\CloudComputingUTN.Middleware.csproj" />
   </ItemGroup>
 

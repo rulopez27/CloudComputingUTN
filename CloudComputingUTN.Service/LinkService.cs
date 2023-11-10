@@ -5,7 +5,7 @@ namespace CloudComputingUTN.Service
 {
     public sealed class LinkService : ILinkService
     {
-        private readonly LinkGenerator _linkGenerator;
+        private readonly LinkGenerator _linkGenerator ;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public LinkService(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)

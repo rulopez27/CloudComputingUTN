@@ -1,8 +1,6 @@
 ﻿using CloudComputingUTN.Middleware;
-using CloudComputingUTN.WebApp.DataAccessLayer;
-using CloudComputingUTN.WebApp.SQLite;
+using CloudComputingUTN.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using NSwag;
 
 namespace CloudComputingUTN.WebApp
 {
@@ -27,27 +25,15 @@ namespace CloudComputingUTN.WebApp
             //    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
 
             ///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
-            SQLiteDbSetup sqliteDbSetup = new SQLiteDbSetup();
+            DatabaseSetup sqliteDbSetup = new DatabaseSetup();
             sqliteDbSetup.SetupInMemoryDatabase();
             services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqliteDbSetup.GetDbConnection()));
 
             services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
             services.AddHttpContextAccessor();
-            services.AddScoped<ILinkService, LinkService>();
 
             // Add services to the container.
             services.AddControllersWithViews();
-            services.AddOpenApiDocument(options => {
-                options.PostProcess = document =>
-                {
-                    document.Info = new OpenApiInfo
-                    {
-                        Title = "CloudComputing.Web.Api",
-                        Description = "API del Sitio Web MuseumDb"
-                    };
-                };
-            });
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -72,12 +58,6 @@ namespace CloudComputingUTN.WebApp
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            if(env.IsDevelopment())
-            {
-                app.UseOpenApi();
-                app.UseSwaggerUi3();
-            }
         }
     }
 }

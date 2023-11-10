@@ -1,6 +1,7 @@
 using CloudComputingUTN.DataAccessLayer;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.Service;
+using CloudComputingUTN.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,11 +23,15 @@ builder.Services.AddScoped<DbContext, MuseumDbContext>();
 //builder.Services
 //    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
 
+///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
+DatabaseSetup sqliteDbSetup = new DatabaseSetup();
+sqliteDbSetup.SetupInMemoryDatabase();
+builder.Services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqliteDbSetup.GetDbConnection()));
 
 builder.Services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ILinkService, LinkService>();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

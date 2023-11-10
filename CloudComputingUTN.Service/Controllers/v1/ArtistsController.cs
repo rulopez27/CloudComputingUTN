@@ -1,43 +1,139 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using CloudComputingUTN.DataAccessLayer;
+using CloudComputingUTN.Entities;
+using CloudComputingUTN.Middleware;
+using CloudComputingUTN.Service.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CloudComputingUTN.Service.Controllers.v1
 {
-    [Route("api/[controller]")]
+
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        // GET: api/<ArtistsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IMuseumDbRepository museumDbRepository;
+        private IMapper _mapper;
+        private IHttpContextAccessor _contextAccessor;
+        public ArtistsController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
-            return new string[] { "value1", "value2" };
+            museumDbRepository = repository;
+            _mapper = mapper;
+            _contextAccessor = httpContextAccessor;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(LinkGenerator linkGenerator)
+        {
+            try
+            {
+                var artists = await museumDbRepository.GetArtists();
+                List<ArtistDto> artistsDtos = new List<ArtistDto>();
+                foreach (var artist in artists)
+                {
+                    var artistDto = _mapper.Map<ArtistDto>(artist);
+                    artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
+                    artistsDtos.Add(artistDto);
+                }
+                return Ok(artistsDtos);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // GET api/<ArtistsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id, LinkGenerator linkGenerator)
         {
-            return "value";
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest();
+                }
+                var artist = await museumDbRepository.GetArtistById(id);
+                var artistDto = _mapper.Map<ArtistDto>(artist);
+                artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
+
+                return Ok(artistDto);
+            }
+            catch (InvalidOperationException ioex)
+            {
+                if (ioex.Message == "Sequence contains no elements.")
+                {
+                    return NotFound();
+                }
+                return StatusCode(500, ioex.Message);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // POST api/<ArtistsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] Artist value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+
+                await museumDbRepository.CreateArtist(value);
+                string uri = linkGenerator.GetUriByAction(context, "Get", "Artists", new { id = value.ArtistId });
+
+                return Created(uri, value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
         // PUT api/<ArtistsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Artist value, LinkGenerator linkGenerator)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+                await museumDbRepository.UpdateArtist(value);
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
 
-        // DELETE api/<ArtistsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        //DELETE api/<ArtistsController>/5
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                HttpContext context = Request.HttpContext;
+                bool deleted = await museumDbRepository.DeleteArtist(id);
+                return Ok("Artista borrado");
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                return StatusCode(500, errorMessage);
+            }
         }
     }
 }

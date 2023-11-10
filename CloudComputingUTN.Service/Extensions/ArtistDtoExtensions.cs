@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using CloudComputingUTN.DataAccessLayer;
 
-namespace CloudComputingUTN.DataAccessLayer.Extensions
+namespace CloudComputingUTN.Service.Extensions
 {
     public static class ArtistDtoExtensions
     {
