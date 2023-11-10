@@ -1,4 +1,4 @@
-﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿namespace CloudComputingUTN.DataAccessLayer
 {
     public record Link(string Href, string Rel, string Method);
 }

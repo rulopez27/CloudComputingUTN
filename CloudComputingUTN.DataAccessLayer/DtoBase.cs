@@ -1,4 +1,4 @@
-﻿namespace CloudComputingUTN.WebApp.DataAccessLayer
+﻿namespace CloudComputingUTN.DataAccessLayer
 {
     public class DtoBase
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CloudComputingUTN.Entities;
 
-namespace CloudComputingUTN.WebApp.DataAccessLayer.Profiles
+namespace CloudComputingUTN.DataAccessLayer.Profiles
 {
     public class ArtworkProfile : Profile
     {
