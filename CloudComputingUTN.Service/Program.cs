@@ -17,11 +17,11 @@ builder.Services.AddScoped<DbContext, MuseumDbContext>();
 
 ///TODO: Si vas a usar MySQL descomenta la siguiente línea de código
 //builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+//    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
 
 ///TODO: Si vas a usar Microsoft SQL Server, descomenta la siguiente línea de código
 //builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MSSQL")));
+//    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
 ///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
 DatabaseSetup sqliteDbSetup = new DatabaseSetup();
@@ -32,6 +32,8 @@ builder.Services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 
 var app = builder.Build();
 
