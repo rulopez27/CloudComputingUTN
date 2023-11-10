@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.Service",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.DataAccessLayer", "CloudComputingUTN.DataAccessLayer\CloudComputingUTN.DataAccessLayer.csproj", "{5F3EEB4E-CEF1-4AAE-8B74-590F76FC095C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudComputingUTN.Sqlite", "CloudComputingUTN.Sqlite\CloudComputingUTN.Sqlite.csproj", "{0DCD927A-4EBF-412B-9789-CCD15C0FB532}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{5F3EEB4E-CEF1-4AAE-8B74-590F76FC095C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F3EEB4E-CEF1-4AAE-8B74-590F76FC095C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F3EEB4E-CEF1-4AAE-8B74-590F76FC095C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DCD927A-4EBF-412B-9789-CCD15C0FB532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCD927A-4EBF-412B-9789-CCD15C0FB532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCD927A-4EBF-412B-9789-CCD15C0FB532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCD927A-4EBF-412B-9789-CCD15C0FB532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
