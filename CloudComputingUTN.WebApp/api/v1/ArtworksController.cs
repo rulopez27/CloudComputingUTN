@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using CloudComputingUTN.Entities;
 using CloudComputingUTN.Middleware;
 using CloudComputingUTN.WebApp.DataAccessLayer;
 using CloudComputingUTN.WebApp.Extensions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
