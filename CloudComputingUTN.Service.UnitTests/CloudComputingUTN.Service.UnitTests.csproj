@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CloudComputingUTN.DataAccessLayer\CloudComputingUTN.DataAccessLayer.csproj" />
     <ProjectReference Include="..\CloudComputingUTN.Service\CloudComputingUTN.Service.csproj" />
   </ItemGroup>
 
