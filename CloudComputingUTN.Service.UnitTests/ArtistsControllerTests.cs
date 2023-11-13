@@ -62,5 +62,14 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
         }
+
+        [Test]
+        public async Task GetArtistById_InvalidId_ReturnsBadRequest()
+        {
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
+            var actionResult = await _controller.Get(0, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(BadRequestResult)));
+        }
     }
 }
