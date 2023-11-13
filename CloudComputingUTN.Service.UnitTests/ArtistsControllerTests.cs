@@ -52,5 +52,15 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.IsNotNull(actionResult);
             actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
+
+        [Test]
+        public async Task GetArtistById_RequestIsGood_ArtistExists_ReturnsOk()
+        {
+            _mockRepository.Setup(m => m.GetArtistById(1)).ReturnsAsync(DatabaseMocking.GetArtistById(1));
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
+            var actionResult = await _controller.Get(1,_mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
+        }
     }
 }

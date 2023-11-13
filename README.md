@@ -64,3 +64,7 @@ Este proyecto contiene los scripts SQL usados para crear la base de datos y conf
 
 ### CloudComputingUTN.WebApp
 Este proyecto es el sitio web y API que interact&uacute;a con la base de datos.
+
+## Instrucciones
+### Ejecutar en Visual Studio Code
+```dotnet run --project CloudComputingUTN.WebApp/CloudComputingUTN.WebApp.csproj```
