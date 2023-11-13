@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace CloudComputingUTN.Service.UnitTests
 {
     [TestFixture]
@@ -7,13 +9,13 @@ namespace CloudComputingUTN.Service.UnitTests
         IMapper _mapper;
         Mock<IHttpContextAccessor> _mockHttpContextAccessor;
         Mock<LinkGenerator> _mockLinkGenerator;
+        ArtistsController? _controller;
 
         [SetUp]
         public void Setup()
         {
             //Mock IMuseumDbRepository
             _mockRepository = new Mock<IMuseumDbRepository>();
-            _mockRepository.Setup(m => m.GetArtists()).ReturnsAsync(DatabaseMocking.ArtistsCollection());
 
             //Mock IMapper
             var mappingConfiguration = new MapperConfiguration(mc =>
@@ -34,10 +36,21 @@ namespace CloudComputingUTN.Service.UnitTests
         [Test]
         public async Task GetArtists_WhenCalled_ReturnsOk() 
         {
-            ArtistsController controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
-            var actionResult = await controller.Get(_mockLinkGenerator.Object);
+            _mockRepository.Setup(m => m.GetArtists()).ReturnsAsync(DatabaseMocking.ArtistsCollection());
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
+            var actionResult = await _controller.Get(_mockLinkGenerator.Object);
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
+        }
+
+        [Test]
+        public async Task GetArtists_ServerError_ReturnsServerError()
+        {
+            _mockRepository.Setup(m => m.GetArtists()).Throws<Exception>();
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
+            var actionResult = await _controller.Get(_mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
     }
 }
