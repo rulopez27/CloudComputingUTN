@@ -1,1 +1,10 @@
 global using NUnit.Framework;
+global using AutoMapper;
+global using CloudComputingUTN.DataAccessLayer.Profiles;
+global using CloudComputingUTN.Middleware;
+global using CloudComputingUTN.Service.Controllers.v1;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Routing;
+global using CloudComputingUTN.Service.UnitTests.Mocking;
+global using Moq;
