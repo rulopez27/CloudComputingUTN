@@ -10,6 +10,7 @@ namespace CloudComputingUTN.Service.UnitTests
         Mock<IHttpContextAccessor> _mockHttpContextAccessor;
         Mock<LinkGenerator> _mockLinkGenerator;
         ArtistsController? _controller;
+        InvalidOperationException _invalidOperationException;
 
         [SetUp]
         public void Setup()
@@ -30,7 +31,11 @@ namespace CloudComputingUTN.Service.UnitTests
             _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
             _mockHttpContextAccessor.Setup(ca => ca.HttpContext).Returns(new DefaultHttpContext());
             
+            //Mock LinkGenerator
             _mockLinkGenerator = new Mock<LinkGenerator>();
+
+            //Exceptions
+            _invalidOperationException = new InvalidOperationException("Sequence contains no elements.");
         }
 
         [Test]
@@ -70,6 +75,16 @@ namespace CloudComputingUTN.Service.UnitTests
             var actionResult = await _controller.Get(0, _mockLinkGenerator.Object);
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(BadRequestResult)));
+        }
+
+        [Test]
+        public async Task GetArtistById_ValidId_ReturnsNotFound()
+        {
+            _mockRepository.Setup(m => m.GetArtistById(2)).Throws(new InvalidOperationException("Sequence contains no elements."));
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object);
+            var actionResult = await _controller.Get(2, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(NotFoundResult)));
         }
     }
 }
