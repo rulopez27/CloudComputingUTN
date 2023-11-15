@@ -47,5 +47,15 @@
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
         }
+
+        [Test]
+        public async Task Get_Artowrk_WhenCalled_ReturnsOk()
+        {
+            _mockRepository.Setup(r => r.GetArtworkById(1)).ReturnsAsync(DatabaseMocking.GetArtwork(1));
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Get(1,_mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
+        }
     }
 }
