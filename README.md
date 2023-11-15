@@ -1,14 +1,9 @@
 # Cloud Computing
 
-El prop&oacute;sito de este proyecto es demostrar una aplicaci&oacute;n Web MVC con conexiones a bases de datos de SQL Server y MySQL tanto locales como en Amazon Web Services RDS usando Entity Framework Core. 
+El prop&oacute;sito de este proyecto es demostrar una aplicaci&oacute;n Web MVC con conexiones a bases de datos de SQL Server, MySQL (tanto locales como en Amazon Web Services RDS) as&iacute; como SQLite de manera local usando Entity Framework Core para cualquier motor de base de datos. 
 -   [Recomendaciones](#recomendaciones).
 -   [Componentes de la Soluci&oacute;n](#componentes-de-la-solución).
--   Instrucciones
-    -   Crear base de datos
-        -   MS SQL Server.
-        -   MySQL
-    -   Ejecutar en Visual Studio.
-    -   Ejecutar en ar en Visual Studio Code
+-   [Instrucciones](#instrucciones).
 
 
 ## Recomendaciones
@@ -40,12 +35,19 @@ Opcional, tambi&eacute;n se recomienda instalar las siguientes herramientas/soft
 ## Componentes de la Soluci&oacute;n
 
 La soluci&oacute;n se compone de distintos proyectos individuales:
+-   [CloudComputingUTN.DataAccessLayer](#cloudcomputingutndataaccesslayer)
 -   [CloudComputingUTN.DataBase](#cloudcomputingutndatabase).
 -   [CloudComputingUTN.Entities](#cloudcomputingutnentities).
 -   [CloudComputingUTN.Middleware](#cloudcomputingutnmiddleware).
 -   [CloudComputingUTN.Middleware.UnitTests](#cloudcomputingutnmiddlewareunittests).
 -   [CloudComputingUTN.MySQL](#cloudcomputingutnmysql).
+-   [CloudComputingUTN.Service](#cloudcomputingutnservice).
+-   [CloudComputingUTN.Service.UnitTests](#cloudcomputingutnserviceunittests).
+-   [CloudComputingUTN.Sqlite](#cloudcomputingutnsqlite).
 -   [CloudComputingUTN.WebApp](#cloudcomputingutnwebapp).
+
+### CloudComputingUTN.DataAccessLayer
+Este proyecto es una librer&iacute;a de clases para formar los DTO (Data Transfer Object) de las entidades.
 
 ### CloudComputingUTN.DataBase
 Este proyecto es de tipo base de datos SQL Server. Desde aqu&iacute; se puede publicar la base de datos a cualquier servidor SQL Server.
@@ -62,9 +64,36 @@ Este proyecto contiene las pruebas unitarias del repositorio de m&eacute;todos y
 ### CloudComputingUTN.MySQL
 Este proyecto contiene los scripts SQL usados para crear la base de datos y configurar el usuario en la base de datos MySQL.
 
+### CloudComputingUTN.Service
+Este proyecto representa una RESTful API con Swagger usando los mismos m&eacute;todos y funciones de acceso a la base de datos que CloudComputingUTN.WebApp.
+
+### CloudComputingUTN.Service.UnitTests
+Este proyecto contiene las pruebas unitarias de la RESTful API CloudComputingUTN.Service
+
+### CloudComputingUTN.Sqlite
+Este proyecto es para la configuraci&oacute;n de una base de datos en memoria de SQLite.
+
 ### CloudComputingUTN.WebApp
 Este proyecto es el sitio web y API que interact&uacute;a con la base de datos.
 
 ## Instrucciones
+-   [Configurar Base de datos en SQL Server](#configurar-base-de-datos-en-sql-server).
+-   [Configurar Base de datos en MySQL](#configurar-base-de-datos-en-mysql).
+-   [Ejecutar en Visual Studio Code](#ejecutar-en-visual-studio-code).
+
+### Configurar Base de datos en SQL Server
+Primero, debes ejecutar el script llamado ```MuseumDb.sql``` localizado en el proyecto ```CloudComputingUTN.Database``` en tu instancia de MSSQL. Una vez creada la base de datos de manera satisfactoria, el siguiente paso es ejecutar el script ```SQL_Login_Setup.sql``` para crear el usuario de SQL Server que se usa en la cadena de conexi&oacute;n. Los cambios surtir&aacute;n efectos al reiniciar el servicio de MSSQLSERVER.
+
+### Configurar Base de datos en MySQL
+Primero, debes ejecutar el script llamado ```MuseumDB.sql``` localizado el directorio ```CloudComputingUTN.MySQL``` en tu instancia de MySQL. Una vez creada la base de datos de manera satisfactoria, el siguiente paso es ejecutar el script ```UserSetup.sql``` para crear el usuario de SQL Server que se usa en la cadena de conexi&oacute;n.
+
 ### Ejecutar en Visual Studio Code
-```dotnet run --project CloudComputingUTN.WebApp/CloudComputingUTN.WebApp.csproj```
+#### Ejecutar CloudComputingUTN.WebApp
+```
+dotnet run --project CloudComputingUTN.WebApp/CloudComputingUTN.WebApp.csproj
+```
+
+#### Ejecutar CloudComputingUTN.Service
+```
+dotnet run --project CloudComputingUTN.WebApp/CloudComputingUTN.Service.csproj
+```
