@@ -77,6 +77,14 @@
             Assert.That(actionResult, Is.TypeOf(typeof(BadRequestResult)));
         }
 
-
+        [Test]
+        public async Task Get_Artwork_ValidId_ReturnsNotFound()
+        {
+            _mockRepository.Setup(m => m.GetArtworkById(2)).Throws(new InvalidOperationException("Sequence contains no elements."));
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Get(2, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(NotFoundResult)));
+        }
     }
 }
