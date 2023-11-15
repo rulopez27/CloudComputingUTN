@@ -194,5 +194,66 @@ namespace CloudComputingUTN.WebApp.Controllers
             ViewData["ArtistId"] = new SelectList(artists.ToList(), "ArtistId", "ArtistName", artworkViewModel.Artwork.ArtistId);
             return View(artworkViewModel);
         }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            ArtworkViewModel model = new ArtworkViewModel();
+            try
+            {
+                if (!id.HasValue)
+                {
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Invalid argument";
+                    model.RecordFound = false;
+                    return View(model);
+                }
+                var artwork = await MuseumDbRepository.GetArtworkById(id.Value);
+                if (artwork == null)
+                {
+                    model.ClassName = "alert alert-danger";
+                    model.Title = "Error";
+                    model.Message = "Entry not found";
+                    model.RecordFound = false;
+                }
+                else
+                {
+                    model.Artwork = artwork;
+                }
+            }
+            catch (Exception ex)
+            {
+                model.ClassName = "alert alert-danger";
+                model.Title = "Error";
+                model.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                model.RecordFound = false;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteArtwork")]
+        public async Task<IActionResult>Delete(int id)
+        {
+            ArtworkViewModel artworkViewModel = new ArtworkViewModel();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await MuseumDbRepository.DeleteArtist(id);
+                }
+                catch (Exception ex)
+                {
+                    artworkViewModel.ClassName = "alert alert-danger";
+                    artworkViewModel.Title = "Error";
+                    artworkViewModel.Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    return View("Delete", artworkViewModel);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(artworkViewModel);
+        }
     }
 }
