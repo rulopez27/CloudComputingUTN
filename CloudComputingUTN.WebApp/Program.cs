@@ -21,6 +21,7 @@ builder.Services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqli
 
 builder.Services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddRazorPages();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -41,11 +42,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
+app.MapRazorPages();
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-});
 
 app.Run();
