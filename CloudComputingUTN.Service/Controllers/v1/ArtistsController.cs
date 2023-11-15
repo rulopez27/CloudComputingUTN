@@ -111,7 +111,6 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
                 await museumDbRepository.UpdateArtist(value);
                 return Ok(value);
             }

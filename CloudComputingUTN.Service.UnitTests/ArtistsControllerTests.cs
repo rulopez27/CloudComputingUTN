@@ -97,5 +97,15 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.That(actionResult, Is.TypeOf(typeof(CreatedResult)));
         }
 
+        [Test]
+        public async Task Put_WhenCalled_ReturnsOk()
+        {
+            Artist artist = DatabaseMocking.GetArtistById(1);
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Put(artist, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
+        }
+
     }
 }
