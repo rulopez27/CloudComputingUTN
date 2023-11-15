@@ -49,6 +49,16 @@
         }
 
         [Test]
+        public async Task Get_Artowrks_ExceptionThrown_ReturnsServerError()
+        {
+            _mockRepository.Setup(r => r.GetArtworks()).Throws<Exception>();
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Get(_mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
+        }
+
+        [Test]
         public async Task Get_Artowrk_WhenCalled_ReturnsOk()
         {
             _mockRepository.Setup(r => r.GetArtworkById(1)).ReturnsAsync(DatabaseMocking.GetArtwork(1));
@@ -57,5 +67,7 @@
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
         }
+
+
     }
 }
