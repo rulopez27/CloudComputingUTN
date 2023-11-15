@@ -118,5 +118,16 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
         }
 
+        [Test]
+        public async Task Put_WhenCalled_ExceptionThrown_ReturnsServerError()
+        {
+            Artist artist = DatabaseMocking.GetNewArtist();
+            _mockRepository.Setup(m => m.UpdateArtist(It.IsAny<Artist>())).Throws(new Exception());
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Put(artist, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
+        }
+
     }
 }
