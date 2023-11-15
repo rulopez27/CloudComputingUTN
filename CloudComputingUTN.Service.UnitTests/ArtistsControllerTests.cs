@@ -147,6 +147,5 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.IsNotNull(actionResult);
             actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
-
     }
 }
