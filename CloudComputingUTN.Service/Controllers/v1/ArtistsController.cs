@@ -93,7 +93,7 @@ namespace CloudComputingUTN.Service.Controllers.v1
                 string uri = "";
                 if (artistDto.Links.Any())
                 {
-                    uri = artistDto.Links.FirstOrDefault(link => link.Rel == "self").Href;
+                    uri = artistDto.Links.First(link => link.Rel == "self").Href;
                 }
                 return Created(uri, value);
             }
