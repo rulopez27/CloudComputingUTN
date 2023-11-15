@@ -130,5 +130,14 @@ namespace CloudComputingUTN.Service.UnitTests
             Assert.IsNotNull(actionResult);
             actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
+
+        [Test]
+        public async Task Delete_WhenCalled_ReturnsOk()
+        {
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Delete(1);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
+        }
     }
 }
