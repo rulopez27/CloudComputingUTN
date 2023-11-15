@@ -38,7 +38,7 @@ namespace CloudComputingUTN.Service.Controllers.v1
                 foreach (var artwork in artworks)
                 {
                     ArtworkDto artworkDto = _mapper.Map<ArtworkDto>(artwork);
-                    artworkDto.CreateArtworkLinks(linkGenerator, _contextAccessor);
+                    artworkDto.CreateArtworkLinks(_linkService, linkGenerator, _contextAccessor);
                     artworksDtoList.Add(artworkDto);
                 }
                 return Ok(artworksDtoList);
@@ -63,7 +63,7 @@ namespace CloudComputingUTN.Service.Controllers.v1
                 }
                 var artwork = await museumDbRepository.GetArtworkById(id);
                 var artworkDto = _mapper.Map<ArtworkDto>(artwork);
-                artworkDto.CreateArtworkLinks(linkGenerator, _contextAccessor);
+                artworkDto.CreateArtworkLinks(_linkService,linkGenerator, _contextAccessor);
                 return Ok(artworkDto);
             }
             catch (InvalidOperationException ioex)
@@ -88,11 +88,14 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
-
                 await museumDbRepository.CreateArtwork(value);
-                string uri = linkGenerator.GetUriByAction(context, "Get", "Artworks", new { id = value.ArtworkId });
-
+                ArtworkDto artworkDto = _mapper.Map<ArtworkDto>(value);
+                artworkDto.CreateArtworkLinks(_linkService, linkGenerator, _contextAccessor);
+                string uri = "";
+                if (artworkDto.Links.Any())
+                {
+                    uri = artworkDto.Links.First(link => link.Rel == "self").Href;
+                }
                 return Created(uri, value);
             }
             catch (Exception ex)
@@ -109,8 +112,6 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
-
                 await museumDbRepository.UpdateArtwork(value);
                 return Ok(value);
             }
@@ -128,7 +129,6 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
                 bool deleted = await museumDbRepository.DeleteArtwork(id);
                 return Ok("Artwork deleted");
             }

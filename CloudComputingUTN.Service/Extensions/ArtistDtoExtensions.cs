@@ -11,7 +11,7 @@ namespace CloudComputingUTN.Service.Extensions
             artistDto.Links.Add(linkService.Generate("Put", "Artists", null, "update", "PUT"));
             artistDto.Links.Add(linkService.Generate("Delete", "Artists", null, "delete", "DELETE"));
 
-            artistDto.Artworks.ForEach(artwork => artwork.CreateArtworkLinks(linkGenerator, context));
+            artistDto.Artworks.ForEach(artwork => artwork.CreateArtworkLinks(linkService,linkGenerator, context));
         }
     }
 }

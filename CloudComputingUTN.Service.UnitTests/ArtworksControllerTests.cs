@@ -1,4 +1,6 @@
-﻿namespace CloudComputingUTN.Service.UnitTests
+﻿using CloudComputingUTN.Entities;
+
+namespace CloudComputingUTN.Service.UnitTests
 {
     [TestFixture]
     public class ArtworksControllerTests
@@ -85,6 +87,16 @@
             var actionResult = await _controller.Get(2, _mockLinkGenerator.Object);
             Assert.IsNotNull(actionResult);
             Assert.That(actionResult, Is.TypeOf(typeof(NotFoundResult)));
+        }
+
+        [Test]
+        public async Task Post_WhenCalled_ReturnsCreated()
+        {
+            Artwork newArtwork = DatabaseMocking.GetNewArtwork();
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Post(newArtwork, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(CreatedResult)));
         }
     }
 }

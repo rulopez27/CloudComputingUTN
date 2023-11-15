@@ -145,5 +145,16 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
 
             return artwork;
         }
+
+        public static Artwork GetNewArtwork()
+        {
+            return new Artwork()
+            {
+                ArtworkName = "Lorem Ipsum",
+                ArtworkYear = 1519,
+                ArtworkDescription = "Lorem ipsum dolor sit amet",
+                ArtworkURL = "https://lorem.com"
+            };
+        }
     }
 }
