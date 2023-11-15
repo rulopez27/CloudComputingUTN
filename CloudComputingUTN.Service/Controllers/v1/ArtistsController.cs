@@ -128,7 +128,6 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
                 bool deleted = await museumDbRepository.DeleteArtist(id);
                 return Ok("Artista borrado");
             }
