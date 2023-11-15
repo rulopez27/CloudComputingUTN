@@ -102,10 +102,10 @@ namespace CloudComputingUTN.Service.UnitTests
         [Test]
         public async Task Post_WhenCalled_ExceptionThrown_ReturnsServerError()
         {
-            Artwork artist = DatabaseMocking.GetNewArtwork();
+            Artwork artwork = DatabaseMocking.GetNewArtwork();
             _mockRepository.Setup(m => m.CreateArtwork(It.IsAny<Artwork>())).Throws(new Exception());
             _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
-            var actionResult = await _controller.Post(artist, _mockLinkGenerator.Object);
+            var actionResult = await _controller.Post(artwork, _mockLinkGenerator.Object);
             Assert.IsNotNull(actionResult);
             actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
