@@ -68,6 +68,15 @@
             Assert.That(actionResult, Is.TypeOf(typeof(OkObjectResult)));
         }
 
+        [Test]
+        public async Task Get_Artowrk_InvalidId_ReturnsBadRequest()
+        {
+            _controller = new ArtworksController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Get(0, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            Assert.That(actionResult, Is.TypeOf(typeof(BadRequestResult)));
+        }
+
 
     }
 }
