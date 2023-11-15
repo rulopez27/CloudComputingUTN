@@ -17,11 +17,13 @@ namespace CloudComputingUTN.Service.Controllers.v1
         private IMuseumDbRepository museumDbRepository;
         private IMapper _mapper;
         private IHttpContextAccessor _contextAccessor;
-        public ArtistsController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        private ILinkService _linkService;
+        public ArtistsController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, ILinkService linkService)
         {
             museumDbRepository = repository;
             _mapper = mapper;
             _contextAccessor = httpContextAccessor;
+            _linkService = linkService;
         }
 
         [HttpGet]
@@ -34,7 +36,7 @@ namespace CloudComputingUTN.Service.Controllers.v1
                 foreach (var artist in artists)
                 {
                     var artistDto = _mapper.Map<ArtistDto>(artist);
-                    artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
+                    artistDto.CreateArtistLinks(_linkService, linkGenerator, _contextAccessor);
                     artistsDtos.Add(artistDto);
                 }
                 return Ok(artistsDtos);
@@ -59,7 +61,7 @@ namespace CloudComputingUTN.Service.Controllers.v1
                 }
                 var artist = await museumDbRepository.GetArtistById(id);
                 var artistDto = _mapper.Map<ArtistDto>(artist);
-                artistDto.CreateArtistLinks(linkGenerator, _contextAccessor);
+                artistDto.CreateArtistLinks(_linkService, linkGenerator, _contextAccessor);
 
                 return Ok(artistDto);
             }
@@ -85,11 +87,14 @@ namespace CloudComputingUTN.Service.Controllers.v1
         {
             try
             {
-                HttpContext context = Request.HttpContext;
-
                 await museumDbRepository.CreateArtist(value);
-                string uri = linkGenerator.GetUriByAction(context, "Get", "Artists", new { id = value.ArtistId });
-
+                ArtistDto artistDto = _mapper.Map<ArtistDto>(value);
+                artistDto.CreateArtistLinks(_linkService, linkGenerator, _contextAccessor);
+                string uri = "";
+                if (artistDto.Links.Any())
+                {
+                    uri = artistDto.Links.FirstOrDefault(link => link.Rel == "self").Href;
+                }
                 return Created(uri, value);
             }
             catch (Exception ex)

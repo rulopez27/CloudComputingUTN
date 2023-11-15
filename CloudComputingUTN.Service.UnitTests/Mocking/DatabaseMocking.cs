@@ -79,5 +79,24 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
             }
             return artist;
         }
+
+        public static Artist GetNewArtist()
+        {
+            return new Artist()
+            {
+                ArtistName = "Lorem Ipsusm",
+                ArtistWikiPage = "https://loremipsum.com",
+                ArtworkGallery = new List<Artwork>()
+                            {
+                                new Artwork
+                                {
+                                    ArtworkName = "Lorem Ipsum dolor sit amet",
+                                    ArtworkYear = 1519,
+                                    ArtworkDescription = "KLorem ipsum dolor sit amet",
+                                    ArtworkURL = "https://loremipsum.com"
+                                }
+                            }
+            };
+        }
     }
 }
