@@ -88,7 +88,7 @@ namespace CloudComputingUTN.Service.UnitTests
         }
 
         [Test]
-        public async Task CreateArtists_WhenCalled_ReturnsCreted()
+        public async Task Post_WhenCalled_ReturnsCreted()
         {
             Artist artist = DatabaseMocking.GetNewArtist();
             _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
@@ -98,7 +98,7 @@ namespace CloudComputingUTN.Service.UnitTests
         }
 
         [Test]
-        public async Task CreateArtists_WhenCalled_ExceptionThrown_ReturnsServerError()
+        public async Task Post_WhenCalled_ExceptionThrown_ReturnsServerError()
         {
             Artist artist = DatabaseMocking.GetNewArtist();
             _mockRepository.Setup(m => m.CreateArtist(It.IsAny<Artist>())).Throws(new Exception());
