@@ -14,6 +14,10 @@ namespace CloudComputingUTN.WebApp.Controllers
         public IActionResult Index()
         {
             ViewData["HostName"] = Request.Host.Host;
+            string environment = DatabaseEngine.InstanceDatabaseEngine().GetEnvironment() == AppEnvironments.Development ?
+                "localhost"
+                : "AWS RDS";
+            ViewData["DatabaseEngine"] = $"{DatabaseEngine.InstanceDatabaseEngine().GetDatabaseEngine()} en {environment}";
             return View();
         }
 
