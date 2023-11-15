@@ -16,12 +16,14 @@ namespace CloudComputingUTN.Service.Controllers.v1
         private IMuseumDbRepository museumDbRepository;
         private IMapper _mapper;
         private IHttpContextAccessor _contextAccessor;
+        private ILinkService _linkService;
 
-        public ArtworksController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public ArtworksController(IMuseumDbRepository repository, IMapper mapper, IHttpContextAccessor httpContextAccessor, ILinkService linkService)
         {
             museumDbRepository = repository;
             _mapper = mapper;
             _contextAccessor = httpContextAccessor;
+            _linkService = linkService;
         }
 
 
