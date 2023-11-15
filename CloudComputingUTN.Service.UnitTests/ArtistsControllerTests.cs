@@ -98,6 +98,17 @@ namespace CloudComputingUTN.Service.UnitTests
         }
 
         [Test]
+        public async Task CreateArtists_WhenCalled_ExceptionThrown_ReturnsServerError()
+        {
+            Artist artist = DatabaseMocking.GetNewArtist();
+            _mockRepository.Setup(m => m.CreateArtist(It.IsAny<Artist>())).Throws(new Exception());
+            _controller = new ArtistsController(_mockRepository.Object, _mapper, _mockHttpContextAccessor.Object, _mockLinkService.Object);
+            var actionResult = await _controller.Post(artist, _mockLinkGenerator.Object);
+            Assert.IsNotNull(actionResult);
+            actionResult.Should().BeOfType<ObjectResult>().Which.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
+        }
+
+        [Test]
         public async Task Put_WhenCalled_ReturnsOk()
         {
             Artist artist = DatabaseMocking.GetArtistById(1);
