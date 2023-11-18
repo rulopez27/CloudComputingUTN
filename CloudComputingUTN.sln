@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CloudComputingUTN.DataBase", "CloudComputingUTN.DataBase\CloudComputingUTN.DataBase.sqlproj", "{352D164F-B462-4C45-AF6C-13F526324A9D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Entities", "CloudComputingUTN.Entities\CloudComputingUTN.Entities.csproj", "{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Middleware", "CloudComuptingUTN.Middleware\CloudComputingUTN.Middleware.csproj", "{5067FD5D-331B-48D3-90C2-3EF16442554B}"
@@ -39,11 +37,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{352D164F-B462-4C45-AF6C-13F526324A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{352D164F-B462-4C45-AF6C-13F526324A9D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{352D164F-B462-4C45-AF6C-13F526324A9D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B78737E-70DF-40E8-9C7C-FF36D97EF7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU

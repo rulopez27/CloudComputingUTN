@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[Artists]
-(
-	[ArtistId] INT NOT NULL PRIMARY KEY IDENTITY,
-	ArtistName VARCHAR(100) NOT NULL,
-	ArtistWikiPage VARCHAR(300) NULL
-)
