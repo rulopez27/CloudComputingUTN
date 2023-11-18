@@ -1,0 +1,31 @@
+﻿version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 7.0 # O la versión que estés utilizando
+
+  pre_build:
+    commands:
+      - echo "Iniciando la fase de pre-compilación"
+      - dotnet restore # Restaurar las dependencias del proyecto
+      - echo "Dependencias restauradas"
+
+  build:
+    commands:
+      - echo "Iniciando la fase de compilación"
+      - dotnet build -c Release # Compilar el proyecto en modo Release
+      - echo "Iniciando pruebas"
+      - dotnet test
+
+  post_build:
+    commands:
+      - echo "Iniciando la fase post-compilación"
+      # Aquí podrías incluir comandos adicionales como pruebas, publicación, etc.
+      - dotnet publish -c Release -o ./publish # Publicar la aplicación en una carpeta "publish"
+      # Los archivos compilados estarán en la carpeta "publish" listos para desplegar en AWS
+
+artifacts:
+  files:
+    - '**/*' # Incluir todos los archivos generados durante la compilación y publicación
+  base-directory: 'publish' # Carpeta donde se encuentran los archivos compilados
