@@ -21,6 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Sqlite", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudComputingUTN.Service.UnitTests", "CloudComputingUTN.Service.UnitTests\CloudComputingUTN.Service.UnitTests.csproj", "{1DEE6B1D-A6E3-4F7B-B9AC-A8EE91BF0E57}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudComputingUTN.MySQL", "CloudComputingUTN.MySQL", "{1FCF8AAB-256D-4B6F-ACE8-C69C0D019D67}"
+	ProjectSection(SolutionItems) = preProject
+		CloudComputingUTN.MySQL\MuseumDB.sql = CloudComputingUTN.MySQL\MuseumDB.sql
+		CloudComputingUTN.MySQL\UserSetup.sql = CloudComputingUTN.MySQL\UserSetup.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
