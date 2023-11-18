@@ -8,5 +8,12 @@ namespace CloudComputingUTN.DataAccessLayer
         public string ArtistName { get; set; }
         public string ArtistWikiPage { get; set; }
         public List<ArtworkDto> Artworks { get; set; }
+
+        public ArtistDto()
+        {
+            ArtistName = string.Empty;
+            ArtistWikiPage = string.Empty;
+            Artworks = new List<ArtworkDto>();
+        }
     }
 }

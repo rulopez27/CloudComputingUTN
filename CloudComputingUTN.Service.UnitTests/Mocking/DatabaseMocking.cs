@@ -1,11 +1,4 @@
-﻿using CloudComputingUTN.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudComputingUTN.Service.UnitTests.Mocking
+﻿namespace CloudComputingUTN.Service.UnitTests.Mocking
 {
     static class DatabaseMocking
     {
@@ -52,9 +45,9 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
             return artists.ToList();
         }
 
-        public static Artist GetArtistById(int id)
+        public static Artist? GetArtistById(int id)
         {
-            Artist artist;
+            Artist? artist = null;
             if (id == 1)
             {
                 artist = new Artist()
@@ -72,10 +65,6 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
                                 }
                             }
                 };
-            }
-            else
-            {
-                artist = null;
             }
             return artist;
         }
@@ -125,9 +114,9 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
             });
             return artworks.ToList();
         }
-        public static Artwork GetArtwork(int id)
+        public static Artwork? GetArtwork(int id)
         {
-            Artwork artwork;
+            Artwork? artwork = null;
             if (id == 1)
             {
                 artwork = new Artwork
@@ -137,10 +126,6 @@ namespace CloudComputingUTN.Service.UnitTests.Mocking
                     ArtworkDescription = "This portrait is believed to be of Lisa Gherardini, the wife of Florentine fabric merchant Francesco del Giocondo. In Italian it is known as \"La Gioconda\", but in English it is commonly referred to as \"The Mona Lisa.\"",
                     ArtworkURL = "https://artsandculture.google.com/asset/portrait-of-lisa-gherardini-wife-of-francesco-del-giocondo-known-as-monna-lisa-la-gioconda-or-mona-lisa-1503-1519-leonardo-di-ser-piero-da-vinci-dit-l%C3%A9onard-de-vinci-1452-1519-paris-mus%C3%A9e-du-louvre/uQGZ28lYUJ3OGw"
                 };
-            }
-            else
-            {
-                artwork = null;
             }
 
             return artwork;
