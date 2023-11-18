@@ -27,6 +27,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudComputingUTN.MySQL", "
 		CloudComputingUTN.MySQL\UserSetup.sql = CloudComputingUTN.MySQL\UserSetup.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudComputingUTN.SQLSever", "CloudComputingUTN.SQLSever", "{FDA63E95-6462-4589-B73F-565DEEAE9BCA}"
+	ProjectSection(SolutionItems) = preProject
+		CloudComputingUTN.SQLServer\MuseumDb.sql = CloudComputingUTN.SQLServer\MuseumDb.sql
+		CloudComputingUTN.SQLServer\SQL_Login_Setup.sql = CloudComputingUTN.SQLServer\SQL_Login_Setup.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
