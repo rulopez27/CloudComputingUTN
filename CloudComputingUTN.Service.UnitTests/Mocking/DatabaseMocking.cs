@@ -1,4 +1,7 @@
-﻿namespace CloudComputingUTN.Service.UnitTests.Mocking
+﻿using CloudComputingUTN.Entities;
+using System.Reflection.Metadata.Ecma335;
+
+namespace CloudComputingUTN.Service.UnitTests.Mocking
 {
     static class DatabaseMocking
     {
@@ -45,16 +48,14 @@
             return artists.ToList();
         }
 
-        public static Artist? GetArtistById(int id)
+        public static Artist GetArtistById(int id)
         {
-            Artist? artist = null;
-            if (id == 1)
+            return new Artist()
             {
-                artist = new Artist()
-                {
-                    ArtistName = "Leonardo Da Vinci",
-                    ArtistWikiPage = "https://artsandculture.google.com/entity/leonardo-da-vinci/m04lg6?categoryId=artist",
-                    ArtworkGallery = new List<Artwork>()
+                ArtistId = id,
+                ArtistName = "Leonardo Da Vinci",
+                ArtistWikiPage = "https://artsandculture.google.com/entity/leonardo-da-vinci/m04lg6?categoryId=artist",
+                ArtworkGallery = new List<Artwork>()
                             {
                                 new Artwork
                                 {
@@ -64,9 +65,7 @@
                                     ArtworkURL = "https://artsandculture.google.com/asset/portrait-of-lisa-gherardini-wife-of-francesco-del-giocondo-known-as-monna-lisa-la-gioconda-or-mona-lisa-1503-1519-leonardo-di-ser-piero-da-vinci-dit-l%C3%A9onard-de-vinci-1452-1519-paris-mus%C3%A9e-du-louvre/uQGZ28lYUJ3OGw"
                                 }
                             }
-                };
-            }
-            return artist;
+            };
         }
 
         public static Artist GetNewArtist()
@@ -114,21 +113,16 @@
             });
             return artworks.ToList();
         }
-        public static Artwork? GetArtwork(int id)
+        public static Artwork GetArtwork(int id)
         {
-            Artwork? artwork = null;
-            if (id == 1)
+            return new Artwork
             {
-                artwork = new Artwork
-                {
-                    ArtworkName = "La Gioconda",
-                    ArtworkYear = 1519,
-                    ArtworkDescription = "This portrait is believed to be of Lisa Gherardini, the wife of Florentine fabric merchant Francesco del Giocondo. In Italian it is known as \"La Gioconda\", but in English it is commonly referred to as \"The Mona Lisa.\"",
-                    ArtworkURL = "https://artsandculture.google.com/asset/portrait-of-lisa-gherardini-wife-of-francesco-del-giocondo-known-as-monna-lisa-la-gioconda-or-mona-lisa-1503-1519-leonardo-di-ser-piero-da-vinci-dit-l%C3%A9onard-de-vinci-1452-1519-paris-mus%C3%A9e-du-louvre/uQGZ28lYUJ3OGw"
-                };
-            }
-
-            return artwork;
+                ArtworkId = id,
+                ArtworkName = "La Gioconda",
+                ArtworkYear = 1519,
+                ArtworkDescription = "This portrait is believed to be of Lisa Gherardini, the wife of Florentine fabric merchant Francesco del Giocondo. In Italian it is known as \"La Gioconda\", but in English it is commonly referred to as \"The Mona Lisa.\"",
+                ArtworkURL = "https://artsandculture.google.com/asset/portrait-of-lisa-gherardini-wife-of-francesco-del-giocondo-known-as-monna-lisa-la-gioconda-or-mona-lisa-1503-1519-leonardo-di-ser-piero-da-vinci-dit-l%C3%A9onard-de-vinci-1452-1519-paris-mus%C3%A9e-du-louvre/uQGZ28lYUJ3OGw"
+            }; ;
         }
 
         public static Artwork GetNewArtwork()
