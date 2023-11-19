@@ -16,7 +16,9 @@ namespace CloudComputingUTN.Service
 
         public Link Generate(string endpointName, string controller, object? routeValues, string rel, string method)
         {
-            return new Link(_linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, endpointName, controller, routeValues), rel, method);
+            var context = _httpContextAccessor.HttpContext ?? new DefaultHttpContext();
+            string uri = _linkGenerator.GetUriByAction(context, endpointName, controller, routeValues) ?? $"api/{controller}/{endpointName}";
+            return new Link(uri, rel, method);
         }
     }
 }
