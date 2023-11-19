@@ -31,9 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudComputingUTN.SQLSever"
 		CloudComputingUTN.SQLServer\SQL_Login_Setup.sql = CloudComputingUTN.SQLServer\SQL_Login_Setup.sql
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{CB3F38A6-54DE-4004-B3C6-73F4C3B0CE93}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{534EDA36-AE51-4791-9099-39898ADF4BAA}"
 	ProjectSection(SolutionItems) = preProject
-		configuration\buildspec.yml = configuration\buildspec.yml
+		buildspec.yml = buildspec.yml
 	EndProjectSection
 EndProject
 Global
