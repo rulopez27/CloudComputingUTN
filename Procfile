@@ -1,0 +1,1 @@
+web: dotnet exec ./CloudComputingUTN.WebApp.dll --urls http://0.0.0.0:5000/
