@@ -8,12 +8,12 @@ env:
     API: CloudComputingUTN.Service
 
 phases:
-    install:
-        commands:
-            - echo "Instalando .NET 7 SDK para compilación"
-            -  winget install Microsoft.DotNet.SDK.7
-            - winget install Microsoft.DotNet.AspNetCore.7
-            - winget install Microsoft.DotNet.Runtime.7
+    # install:
+    #     commands:
+    #         - echo "Instalando .NET 7 SDK para compilación"
+    #         -  winget install Microsoft.DotNet.SDK.7
+    #         - winget install Microsoft.DotNet.AspNetCore.7
+    #         - winget install Microsoft.DotNet.Runtime.7
 
     pre_build:
         commands:
