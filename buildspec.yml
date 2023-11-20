@@ -37,7 +37,7 @@ artifacts:
     discard-paths: no
 
 reports:
-    ${PROJECT}:
+    CloudComputingUTN:
         file-format: VisualStudioTrx
         files:
             - '**/*'
