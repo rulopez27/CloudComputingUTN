@@ -9,6 +9,14 @@
           "iisPath": "/",
           "iisWebSite": "Default Web Site"
         }
+      },
+      {
+        "name": "CloudComputingUTN.Service",
+        "parameters": {
+          "appBundle": "api.zip",
+          "iisPath": "/api",
+          "iisWebSite": "api"
+        }
       }
     ]
   }
