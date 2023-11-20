@@ -24,7 +24,7 @@ phases:
       - dotnet test -c Release --logger trx --results-directory ./testresults #Ejecutar pruebas unitarias
   post_build:
     commands:
-      - echo "Empezando publicación ${WebSite}"
+      - echo "Empezando publicación CloudComputingUTN.WebApp"
       - dotnet publish -c Release  -r win-x64 -o ./site_build_output ./${WebSite}/${WebSite}.csproj --self-contained true
       - cp Procfile ./site_build_output
       - cd ./site_build_output
@@ -32,14 +32,14 @@ phases:
       - cd ../.
       - zip website.zip site.zip aws-windows-deployment-manifest.json
       - cp website.zip ./site_build_output
-      - echo "Empezando publicación ${API}"
+      - echo "Empezando publicación CloudComputingUTN.Service"
       - dotnet publish -c Release  -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
       - cp Procfile ./api_build_output
       - cd ./api_build_output
-      - zip ../service.zip *
+      - zip ../api.zip *
       - cd ../.
       - zip api.zip api.zip aws-windows-deployment-manifest.json
-      - cp api.zip ./api_build_output
+      - cp service.zip ./api_build_output
 
 artifacts:
     files:
@@ -47,12 +47,12 @@ artifacts:
     secondary-artifacts:
         Website:
             files:
-                - 'site.zip' #Incluir todos los archivos generados durante la compilación
+                - 'website.zip' #Incluir todos los archivos generados durante la compilación
             base-directory: './site_build_output' #Carpeta donde se encuentran los archivos compilados
             discard-paths: no
         API:
             files:
-                - 'api.zip' #Incluir todos los archivos generados durante la compilación
+                - 'service.zip' #Incluir todos los archivos generados durante la compilación
             base-directory: './api_build_output' #Carpeta donde se encuentran los archivos compilados
             discard-paths: no
 
