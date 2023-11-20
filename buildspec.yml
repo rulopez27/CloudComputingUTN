@@ -1,9 +1,13 @@
 ﻿version: 0.2    
+env:
+  variavles:
+    PROJECT: CloudComputingUTN.WebApp
+
 phases:
   install:
     commands:
+      - echo "Instalando .NET 7 SDK para compilación""
       - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS #Instalar .NET 7.0
-
   pre_build:
     commands:
     - echo "Iniciando restauración de dependencias del proyecto"
@@ -12,13 +16,25 @@ phases:
   build:
     commands:
       - echo "Iniciando compilación"
-      - dotnet build -c Release -o ./publish #Compilar solución en modo Release
+      - dotnet build -c Release #Compilar en modo Release
       - echo "Compilación correcta"
+      - echo "Ejecutando pruebas unitarias"
+      - dotnet test -c Release --logger trx --results-directory .\testresults #Ejecutar pruebas unitarias
   post_build:
     commands:
-      - echo "Ejecutando pruebas unitarias"
-      - dotnet test #Ejecutar pruebas unitarias
+      - echo "Empezando publicación"
+      - dotnet publish -c Release  -r win-x64 -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained trueClo
+      - cp Procfile ./build_output
+
 artifacts:
     files:
         - '**/*' #Incluir todos los archivos generados durante la compilación
-    base-directory: 'publish' #Carpeta donde se encuentran los archivos compilados
+    base-directory: './build_output' #Carpeta donde se encuentran los archivos compilados
+    discard-paths: no
+
+reports:
+    ${PROJECT}:
+    file-format: VisualStudioTrx
+    files:
+        - '**/*'
+    base-directory: './testresults'
