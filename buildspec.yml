@@ -24,21 +24,21 @@ phases:
       - dotnet test -c Release --logger trx --results-directory ./testresults #Ejecutar pruebas unitarias
   post_build:
     commands:
+#CloudComputingUTN.WebApp
       - echo "Empezando publicación CloudComputingUTN.WebApp"
       - dotnet publish -c Release  -r win-x64 -o ./site_build_output ./${WebSite}/${WebSite}.csproj --self-contained true
-      - cp Procfile ./site_build_output
       - cd ./site_build_output
       - zip ../site.zip *
       - cd ../.
       - zip website.zip site.zip aws-windows-deployment-manifest.json
       - cp website.zip ./site_build_output
+#CloudComputingUTN.Service
       - echo "Empezando publicación CloudComputingUTN.Service"
       - dotnet publish -c Release  -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
-      - cp Procfile ./api_build_output
       - cd ./api_build_output
       - zip ../api.zip *
       - cd ../.
-      - zip api.zip api.zip aws-windows-deployment-manifest.json
+      - zip service.zip api.zip aws-windows-deployment-manifest.json
       - cp service.zip ./api_build_output
 
 artifacts:

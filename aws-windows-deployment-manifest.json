@@ -5,7 +5,7 @@
       {
         "name": "CloudComputingUTN.WebApp",
         "parameters": {
-          "appBundle": "site.zip",
+          "appBundle": "website.zip",
           "iisPath": "/",
           "iisWebSite": "Default Web Site"
         }
@@ -13,7 +13,7 @@
       {
         "name": "CloudComputingUTN.Service",
         "parameters": {
-          "appBundle": "api.zip",
+          "appBundle": "service.zip",
           "iisPath": "/api",
           "iisWebSite": "api"
         }
