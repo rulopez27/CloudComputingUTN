@@ -3,15 +3,12 @@
 env:
   variables:
     PROJECT: CloudComputingUTN.WebApp
-    DOTNET_CORE_RUNTIME: 7.0
 
 phases:
   install:
-    runtime-versions:
-        dotnet: ${DOTNET_CORE_RUNTIME}
-    #commands:
-     # - echo "Instalando .NET 7 SDK para compilación"
-     # - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS #Instalar .NET 7.0
+    commands:
+        - echo "Instalando .NET 7 SDK para compilación"
+        - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS #Instalar .NET 7.0
   pre_build:
     commands:
     - echo "Iniciando restauración de dependencias del proyecto"
