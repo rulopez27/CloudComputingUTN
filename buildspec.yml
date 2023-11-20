@@ -26,6 +26,10 @@ phases:
       - echo "Empezando publicación"
       - dotnet publish -c Release  -r win-x64 -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained true
       - cp Procfile ./build_output
+      - cd ./build_output
+      - zip ../site.zip *
+      - cd ../.
+      - zip CloudComputingUTN.zip site.zip aws-windows-deployment-manifest.json
 
 artifacts:
     files:
