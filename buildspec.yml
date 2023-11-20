@@ -24,13 +24,13 @@ phases:
   post_build:
     commands:
       - echo "Empezando publicación"
-      - dotnet publish -c Release  -r win-x64 -o .\build_output ./${PROJECT}/${PROJECT}.csproj --self-contained trueClo
-      - cp Procfile ./build_output
+      - dotnet publish -c Release  -r win-x64 -o .\build_output .\${PROJECT}/${PROJECT}.csproj --self-contained trueClo
+      - cp Procfile .\build_output
 
 artifacts:
     files:
         - '**/*' #Incluir todos los archivos generados durante la compilación
-    base-directory: './build_output' #Carpeta donde se encuentran los archivos compilados
+    base-directory: '.\build_output' #Carpeta donde se encuentran los archivos compilados
     discard-paths: no
 
 reports:
@@ -38,4 +38,4 @@ reports:
         file-format: VisualStudioTrx
         files:
             - '**/*'
-        base-directory: './testresults'
+        base-directory: '.\testresults'
