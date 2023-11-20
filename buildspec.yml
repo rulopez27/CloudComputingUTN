@@ -1,4 +1,5 @@
-﻿version: 0.2    
+﻿version: 0.2
+
 env:
   variables:
     PROJECT: CloudComputingUTN.WebApp
@@ -37,7 +38,7 @@ artifacts:
 
 reports:
     ${PROJECT}:
-    file-format: VisualStudioTrx
-    files:
-        - '**/*'
-    base-directory: './testresults'
+        file-format: VisualStudioTrx
+        files:
+            - '**/*'
+        base-directory: './testresults'
