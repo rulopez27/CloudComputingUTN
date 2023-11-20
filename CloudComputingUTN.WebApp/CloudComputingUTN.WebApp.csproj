@@ -1,13 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
@@ -28,4 +31,7 @@
     <ProjectReference Include="..\CloudComuptingUTN.Middleware\CloudComputingUTN.Middleware.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Include="web.config" CopyToPublishDirectory="Always" />
+	</ItemGroup>
 </Project>
