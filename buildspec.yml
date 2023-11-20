@@ -34,7 +34,7 @@ phases:
 artifacts:
     files:
         - 'CloudComputingUTN.zip' #Incluir todos los archivos generados durante la compilación
-    base-directory: 'CloudComputingUTN.zip' #Carpeta donde se encuentran los archivos compilados
+    base-directory: '/' #Carpeta donde se encuentran los archivos compilados
     discard-paths: no
 
 reports:
