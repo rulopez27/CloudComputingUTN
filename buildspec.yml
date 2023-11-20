@@ -2,7 +2,8 @@
 
 env:
   variables:
-    PROJECT: CloudComputingUTN.WebApp
+    WebSite: CloudComputingUTN.WebApp
+    API: CloudComputingUTN.Service
 
 phases:
   install:
@@ -23,21 +24,37 @@ phases:
       - dotnet test -c Release --logger trx --results-directory ./testresults #Ejecutar pruebas unitarias
   post_build:
     commands:
-      - echo "Empezando publicación"
-      - dotnet publish -c Release  -r win-x64 -o ./build_output ./${PROJECT}/${PROJECT}.csproj --self-contained true
-      - cp Procfile ./build_output
-      - cd ./build_output
+      - echo "Empezando publicación ${WebSite}"
+      - dotnet publish -c Release  -r win-x64 -o ./site_build_output ./${WebSite}/${WebSite}.csproj --self-contained true
+      - cp Procfile ./site_build_output
+      - cd ./site_build_output
       - zip ../site.zip *
       - cd ../.
-      - zip CloudComputingUTN.zip site.zip aws-windows-deployment-manifest.json
-      - cp CloudComputingUTN.zip ./build_output
+      - zip website.zip site.zip aws-windows-deployment-manifest.json
+      - cp website.zip ./site_build_output
+      - echo "Empezando publicación ${API}"
+      - dotnet publish -c Release  -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
+      - cp Procfile ./api_build_output
+      - cd ./api_build_output
+      - zip ../service.zip *
+      - cd ../.
+      - zip api.zip api.zip aws-windows-deployment-manifest.json
+      - cp api.zip ./api_build_output
 
 artifacts:
-    BuildArtifact:
-        files:
-            - 'CloudComputingUTN.zip' #Incluir todos los archivos generados durante la compilación
-        base-directory: './build_output' #Carpeta donde se encuentran los archivos compilados
-        discard-paths: no
+    files:
+        - '**/*'
+    secondary-artifacts:
+        Website:
+            files:
+                - 'site.zip' #Incluir todos los archivos generados durante la compilación
+            base-directory: './site_build_output' #Carpeta donde se encuentran los archivos compilados
+            discard-paths: no
+        API:
+            files:
+                - 'api.zip' #Incluir todos los archivos generados durante la compilación
+            base-directory: './api_build_output' #Carpeta donde se encuentran los archivos compilados
+            discard-paths: no
 
 reports:
     CloudComputingUTN:
