@@ -2,58 +2,60 @@
 
 env:
   variables:
-    WebSite: CloudComputingUTN.WebApp
+    SOLUTION: CloudComputingUTN.sln
+    # DOTNET_VERSION: 7.0
+    WEBSITE: CloudComputingUTN.WebApp
     API: CloudComputingUTN.Service
 
 phases:
-  install:
-    commands:
-        - echo "Instalando .NET 7 SDK para compilación"
-        - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS #Instalar .NET 7.0
-  pre_build:
-    commands:
-    - echo "Iniciando restauración de dependencias del proyecto"
-    - dotnet restore #Restaurar dependencias
-    - echo "Restauración de dependencias terminada"
-  build:
-    commands:
-      - echo "Iniciando compilación"
-      - dotnet build -c Release #Compilar en modo Release
-      - echo "Compilación correcta"
-      - echo "Ejecutando pruebas unitarias"
-      - dotnet test -c Release --logger trx --results-directory ./testresults #Ejecutar pruebas unitarias
-  post_build:
-    commands:
-#CloudComputingUTN.WebApp
-      - echo "Empezando publicación CloudComputingUTN.WebApp"
-      - dotnet publish -c Release  -r win-x64 -o ./site_build_output ./${WebSite}/${WebSite}.csproj --self-contained true
-      - cd ./site_build_output
-      - zip ../site.zip *
-      - cd ../.
-      - zip website.zip site.zip aws-windows-deployment-manifest.json
-      - cp website.zip ./site_build_output
-#CloudComputingUTN.Service
-      - echo "Empezando publicación CloudComputingUTN.Service"
-      - dotnet publish -c Release  -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
-      - cd ./api_build_output
-      - zip ../api.zip *
-      - cd ../.
-      - zip service.zip api.zip aws-windows-deployment-manifest.json
-      - cp service.zip ./api_build_output
+    # install:
+    #     commands:
+    #         - echo "Instalando .NET 7 SDK para compilación"
+    #         -  winget install Microsoft.DotNet.SDK.7
+    #         - winget install Microsoft.DotNet.AspNetCore.7
+    #         - winget install Microsoft.DotNet.Runtime.7
 
+    pre_build:
+        commands:
+            - echo "Iniciando restauración de dependencias del proyecto"
+            - dotnet restore #Restaurar dependencias
+            - echo "Restauración de dependencias terminada"
+    build:
+        commands:
+          - echo "Iniciando compilación"
+          - dotnet build -c Release #Compilar en modo Release
+          - echo "Compilación correcta"
+          - echo "Ejecutando pruebas unitarias"
+          - dotnet test -c Release --logger trx --results-directory ./testresults #Ejecutar pruebas unitarias
+    post_build:
+        commands:
+        #CloudComputingUTN.WebApp
+            - echo "Empezando publicación CloudComputingUTN.WebApp"
+            - $publishWebsiteFolder = ".\publish\workspace\website"; mkdir $publishWebsiteFolder
+            - dotnet publish -c Release  -r win-x64 -o ./site_build_output ./${WEBSITE}/${WEBSITE}.csproj --self-contained true
+            - Compress-Archive -Path .\site_build_output\* -DestinationPath .\site.zip
+            - Compress-Archive -Path .\site.zip, .\aws-windows-deployment-manifest.json -DestinationPath .\website.zip
+            - cp .\website.zip $publishWebsiteFolder
+        #CloudComputingUTN.Service
+            - echo "Empezando publicación CloudComputingUTN.Service"
+            - $publisApiFolder = ".\publish\workspace\api"; mkdir $publisApiFolder
+            - dotnet publish -c Release  -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
+            - Compress-Archive -Path .\api_build_output\* -DestinationPath .\api.zip
+            - Compress-Archive -Path .\api.zip, .\aws-windows-deployment-manifest.json -DestinationPath .\service.zip
+            - cp .\service.zip $publisApiFolder
 artifacts:
     files:
         - '**/*'
     secondary-artifacts:
-        Website:
+        WEBSITE:
             files:
                 - 'website.zip' #Incluir todos los archivos generados durante la compilación
-            base-directory: './site_build_output' #Carpeta donde se encuentran los archivos compilados
+            base-directory: $publishWebsiteFolder #Carpeta donde se encuentran los archivos compilados
             discard-paths: no
         API:
             files:
                 - 'service.zip' #Incluir todos los archivos generados durante la compilación
-            base-directory: './api_build_output' #Carpeta donde se encuentran los archivos compilados
+            base-directory: $publisApiFolder #Carpeta donde se encuentran los archivos compilados
             discard-paths: no
 
 reports:
