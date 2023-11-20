@@ -24,7 +24,7 @@ phases:
   post_build:
     commands:
       - echo "Empezando publicación"
-      - dotnet publish -c Release  -r win-x64 -o .\build_output .\${PROJECT}\${PROJECT}.csproj --self-contained trueClo
+      - dotnet publish -c Release  -r win-x64 -o .\build_output .\${PROJECT}\${PROJECT}.csproj --self-contained true
       - cp Procfile .\build_output
 
 artifacts:
