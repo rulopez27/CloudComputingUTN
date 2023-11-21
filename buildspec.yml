@@ -74,8 +74,8 @@ phases:
             - cd ../.
             - zip website.zip site.zip aws-windows-deployment-manifest.json
             - cp website.zip ./site_build_output
-            - aws s3 cp --debug website.zip s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/ --sse-kms-id b748037d-8075-4630-b6de-c3f8de5f3757
-            - echo "Se ha publicado el artefacto WEBSITE en s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/"
+            - aws s3 cp website.zip s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/website.zip
+            - echo "Se ha publicado el artefacto WEBSITE en s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/website.zip"
             #CloudComputingUTN.Service
             - echo "Empezando publicación CloudComputingUTN.Service"
             - dotnet publish -c Release -r win-x64 -o ./api_build_output ./${API}/${API}.csproj --self-contained true
@@ -84,7 +84,7 @@ phases:
             - cd ../.
             - zip service.zip api.zip aws-windows-deployment-manifest.json
             - cp service.zip ./api_build_output
-            - aws s3 cp --debug service.zip s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/ --sse-kms-id b748037d-8075-4630-b6de-c3f8de5f3757
+            - aws s3 cp service.zip s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/service.zip
             - echo "Se ha publicado el artefacto SERVICE en s3://codepipeline-us-west-1-259134806491/build/$CODEBUILD_BUILD_ID/"
 artifacts:
     files:
