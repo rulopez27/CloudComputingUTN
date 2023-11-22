@@ -15,18 +15,21 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DbContext, MuseumDbContext>();
 
-///TODO: Si vas a usar MySQL descomenta la siguiente línea de código
-//builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+#if DATABASE_ENGINE_MYSQL
+builder.Services
+    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+#endif
 
-///TODO: Si vas a usar Microsoft SQL Server, descomenta la siguiente línea de código
-//builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+#if DATABASE_ENGINE_MSSQL
+builder.Services
+    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+#endif
 
-///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
+#if DATABASE_ENGINE_SQLITE
 DatabaseSetup sqliteDbSetup = new DatabaseSetup();
 sqliteDbSetup.SetupInMemoryDatabase();
 builder.Services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqliteDbSetup.GetDbConnection()));
+#endif
 
 builder.Services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
 builder.Services.AddHttpContextAccessor();
