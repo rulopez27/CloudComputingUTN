@@ -1,6 +1,6 @@
 # Cloud Computing
 
-El prop&oacute;sito de este proyecto es demostrar un ejemplo de una aplicaci&oacute;n ASP.NET Core que pueda ser usado por los alumnos de la clase de Gesti&oacute;n del Proceso de Desarrollo de Software en la carrera de Ingenier&iacute; en Tecnolog&iacute;as de la Informaci&oacute;n de la Universidad Tecnolog&oacute;ca de Nogales.
+El prop&oacute;sito de este proyecto es demostrar un ejemplo de una aplicaci&oacute;n ASP.NET Core que pueda ser usado por los alumnos de la clase de Gesti&oacute;n del Proceso de Desarrollo de Software en la carrera de Ingenier&iacute;a en Tecnolog&iacute;as de la Informaci&oacute;n de la Universidad Tecnolog&oacute;ca de Nogales.
 
 La soluci&oacute;n cuenta con dos proyectos de tipo ASP.NET Core (MVC y RESTful API) con conexiones a bases de datos de SQL Server, MySQL (tanto locales como en Amazon Web Services RDS) as&iacute; como SQLite de manera local usando Entity Framework Core y el patr&oacute;n de dise&ntilde;o Respository para cualquier usar motor de base de datos. 
 -   [Recomendaciones](#recomendaciones).
