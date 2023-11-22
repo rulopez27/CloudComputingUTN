@@ -1,6 +1,8 @@
 # Cloud Computing
 
-El prop&oacute;sito de este proyecto es demostrar una aplicaci&oacute;n Web MVC con conexiones a bases de datos de SQL Server, MySQL (tanto locales como en Amazon Web Services RDS) as&iacute; como SQLite de manera local usando Entity Framework Core para cualquier motor de base de datos. 
+El prop&oacute;sito de este proyecto es demostrar un ejemplo de una aplicaci&oacute;n ASP.NET Core que pueda ser usado por los alumnos de la clase de Gesti&oacute;n del Proceso de Desarrollo de Software en la carrera de Ingenier&iacute; en Tecnolog&iacute;as de la Informaci&oacute;n de la Universidad Tecnolog&oacute;ca de Nogales.
+
+La soluci&oacute;n cuenta con dos proyectos de tipo ASP.NET Core (MVC y RESTful API) con conexiones a bases de datos de SQL Server, MySQL (tanto locales como en Amazon Web Services RDS) as&iacute; como SQLite de manera local usando Entity Framework Core y el patr&oacute;n de dise&ntilde;o Respository para cualquier usar motor de base de datos. 
 -   [Recomendaciones](#recomendaciones).
 -   [Componentes de la Soluci&oacute;n](#componentes-de-la-solución).
 -   [Instrucciones](#instrucciones).
@@ -86,7 +88,7 @@ Este proyecto contiene las pruebas unitarias de la RESTful API CloudComputingUTN
 Este proyecto es para la configuraci&oacute;n de una base de datos en memoria de SQLite.
 
 ### CloudComputingUTN.WebApp
-Este proyecto es el sitio web y API que interact&uacute;a con la base de datos.
+Este proyecto es el sitio web MVC con la base de datos.
 
 ## Instrucciones
 -   [Configurar Base de datos en SQLite](#configurar-base-de-datos-sqlite)
@@ -130,7 +132,7 @@ En caso de ejecutarse en localhost (127.0.0.1) no debe realizarase cambio en la 
 Los proyectos **CloudComputingUTN.WebApp** y **CloudComputingUTN.Service** están configurados de la misma manera. Ambos se ejecutan con una base de datos SQLite en memoria por defecto, pero pueden configurarse para ejecutarse con conexión a SQL Server o MySQL de manera local o en AWS RDS mediante s&iacute;mbolos condicionales de compilaci&oacute;n.
 
 - [Modificar los s&iacute;bolos condicionales de compilaci&oacute;n en los archivos .csproj](#modificar-los-símbolos-condicionales-de-compilación-en-los-archivos-csproj)
-- [Modificar los s&iacute;bolos condicionales de compilaci&oacute;n en los archivos .csproj](#modificar-símbolos-condicionales-de-compilación-en-visual-studio-2022)
+- [Modificar los s&iacute;bolos condicionales de compilaci&oacute;n en Visual Studio 2022](#modificar-símbolos-condicionales-de-compilación-en-visual-studio-2022)
 
 #### Modificar los s&iacute;mbolos condicionales de compilaci&oacute;n en los archivos .csproj
 
