@@ -7,24 +7,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<DbContext, MuseumDbContext>();
 
-///TODO: Si vas a usar MySQL descomenta la siguiente línea de código
-//builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
-//DatabaseEngine.InstanceDatabaseEngine().SetEngine(DatabaseEngines.MySQL);
-///END
-
-///TODO: Si vas a usar Microsoft SQL Server, descomenta la siguiente línea de código
-//builder.Services
-//    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
-//DatabaseEngine.InstanceDatabaseEngine().SetEngine(DatabaseEngines.MSSQL);
-///END
-
-///TODO: Si vas a usar SQLite, descomenta las siguientes líneas de código
+#if DATABASE_ENGINE_SQLITE
 DatabaseSetup sqliteDbSetup = new DatabaseSetup();
 sqliteDbSetup.SetupInMemoryDatabase();
 builder.Services.AddDbContext<MuseumDbContext>(options => options.UseSqlite(sqliteDbSetup.GetDbConnection()));
 DatabaseEngine.InstanceDatabaseEngine().SetEngine(DatabaseEngines.SQLite);
-///END
+#endif
+
+#if DATABASE_ENGINE_MSSQL
+builder.Services
+    .AddDbContext<MuseumDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+DatabaseEngine.InstanceDatabaseEngine().SetEngine(DatabaseEngines.MSSQL);
+#endif
+
+#if DATABASE_ENGINE_MYSQL
+builder.Services
+    .AddDbContext<MuseumDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySQL"), ServerVersion.Parse("8.0.31-mysql")));
+DatabaseEngine.InstanceDatabaseEngine().SetEngine(DatabaseEngines.MySQL);
+#endif
 
 builder.Services.AddScoped<IMuseumDbRepository, MuseumDbRepository>();
 builder.Services.AddHttpContextAccessor();
