@@ -7,14 +7,10 @@
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<!--<DefineConstants>$(DefineConstants);DATABASE_ENGINE_MSSQL</DefineConstants>-->
-		<!--<DefineConstants>$(DefineConstants);DATABASE_ENGINE_MYSQL</DefineConstants>-->
 		<DefineConstants>$(DefineConstants);DATABASE_ENGINE_SQLITE</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<!--<DefineConstants>$(DefineConstants);DATABASE_ENGINE_MSSQL</DefineConstants>-->
-		<!--<DefineConstants>$(DefineConstants);DATABASE_ENGINE_MYSQL</DefineConstants>-->
 		<DefineConstants>$(DefineConstants);DATABASE_ENGINE_SQLITE</DefineConstants>
 	</PropertyGroup>	
 
