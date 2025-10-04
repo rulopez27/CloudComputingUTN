@@ -25,7 +25,7 @@ pipeline {
     }
     post {
         always {
-            nunit allowEmptyResults: true, testResults: '**/TestResults/test-results.xml'
+            nunit failIfNoResults: true, testResultsPattern: '**/TestResults/test-results.xml'
             recordCoverage tools: [[parser: 'COBERTURA', pattern: '**/coverage.cobertura.xml']]
         }
     }
