@@ -19,13 +19,13 @@ pipeline {
         }
         stage('Test and Coverage') {
             steps {
-                sh 'dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"'
+                sh 'dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:"trx"'
             }
         }
     }
     post {
         always {
-            junit '**/TestResults/**/*.xml'
+            junit allowEmptyResults: true, testResults: '**/TestResults/*.trx'
             recordCoverage tools: [[parser: 'COBERTURA', pattern: '**/coverage.cobertura.xml']]
         }
     }
