@@ -19,13 +19,13 @@ pipeline {
         }
         stage('Test and Coverage') {
             steps {
-                sh 'dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:"trx"'
+                sh 'dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:"nunit;LogFilePath=TestResults/test-results.xml"'
             }
         }
     }
     post {
         always {
-            nunit allowEmptyResults: true, testResults: '**/TestResults/*.trx'
+            nunit allowEmptyResults: true, testResults: '**/TestResults/test-results.xml'
             recordCoverage tools: [[parser: 'COBERTURA', pattern: '**/coverage.cobertura.xml']]
         }
     }
