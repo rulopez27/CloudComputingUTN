@@ -19,13 +19,19 @@ pipeline {
         }
         stage('Test and Coverage') {
             steps {
-                sh 'dotnet test --no-build --verbosity normal --logger:"nunit;LogFilePath=TestResults/test-results.xml"'
+                sh 'dotnet test --no-build --verbosity normal --logger:"trx;LogFileName=test-results.trx"'
+            }
+        }
+        stage('Convert TRX to JUnit') {
+            steps {
+                sh 'dotnet tool install -g trx2junit'
+                sh 'export PATH="$PATH:$HOME/.dotnet/tools" && find . -name "*.trx" -exec trx2junit {} \\;'
             }
         }
     }
     post {
         always {
-            nunit failIfNoResults: true, testResultsPattern: '**/TestResults/test-results.xml'
+            junit allowEmptyResults: true, testResults: '**/TestResults/*.xml'
         }
     }
 }
