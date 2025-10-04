@@ -17,25 +17,16 @@ pipeline {
                 sh 'dotnet build CloudComputingUTN.sln --configuration Release --no-restore'
             }
         }
-        stage('Code Coverage') {
+        stage('Test and Coverage') {
             steps {
-                sh 'dotnet test --no-build --verbosity normal --no-restore --collect "XPlat Code Coverage"'
-            }
-        }
-        post {
-                always {
-                    recordCoverage(tools: [[parser: 'COBERTURA', pattern: '**/*.xml']], sourceDirectories: [[path: 'SimpleWebApi.Test/TestResults']])
-                }
-            }
-        stage('Test') {
-            steps {
-                sh 'dotnet test CloudComputingUTN.sln --no-build --verbosity normal'
+                sh 'dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"'
             }
         }
     }
     post {
         always {
-            junit '**/TestResults/*.xml'
+            junit '**/TestResults/**/*.xml'
+            recordCoverage tools: [[parser: 'COBERTURA', pattern: '**/coverage.cobertura.xml']]
         }
     }
 }
